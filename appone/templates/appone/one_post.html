@@ -1,0 +1,24 @@
+{% extends "appone/base.html"%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1>{{ title }}</h1>
+<h3>{{ text }}</h3>
+
+<br>
+
+Dib by {{ user.username }}
+
+<br>
+<br>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <button type="submit" name="likes" class="btn btn-primary">Likes</button>
+    <h3>{{ likes  }}</h3>
+    <button type="submit" name="dislikes" class="btn btn-danger">Dislikes</button>
+    <h3>{{ dislikes  }}</h3>
+</form>
+
+{% endblock %}

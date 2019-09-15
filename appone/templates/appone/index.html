@@ -1,0 +1,14 @@
+{% extends "appone/base.html"%}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1>My Fisrt Crispy Form</h1>
+
+<br>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}

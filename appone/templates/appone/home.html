@@ -1,0 +1,23 @@
+{% extends "appone/base.html"%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1>All Posts</h1>
+
+<br>
+{% for Posts in Post %}
+<div  style="border-radius:25px;border: 2px solid black;" align="center" >
+    <h1><a href="{% url 'postone' Posts.pk%}">{{ Posts.title }}</a></h1>
+    <hr>
+    {{ Posts.text }}
+    <br>
+    <h3>Likes</h3> : {{ Posts.likes }}
+    <h3>Dislikes</h3> : {{ Posts.dislikes }}
+    <hr>
+    Did by {{ Posts.author }}
+</div>
+
+{% endfor %}
+
+{% endblock %}
