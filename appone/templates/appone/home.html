@@ -3,21 +3,35 @@
 
 {% block content %}
 
-<h1>All Posts</h1>
+<br>
+
+<h1 style="color:red; text-align:center">All Posts</h1>
 
 <br>
-{% for Posts in Post %}
-<div  style="border-radius:25px;border: 2px solid black;" align="center" >
-    <h1><a href="{% url 'postone' Posts.pk%}">{{ Posts.title }}</a></h1>
-    <hr>
-    {{ Posts.text }}
-    <br>
-    <h3>Likes</h3> : {{ Posts.likes }}
-    <h3>Dislikes</h3> : {{ Posts.dislikes }}
-    <hr>
-    Did by {{ Posts.author }}
-</div>
+<br>
 
-{% endfor %}
+
+
+    {% for Posts in Post %}
+        <div style="border: 2px solid black; padding: 20px;
+         text-align:center; width:700px; margin: 0 auto; ">
+            <h2><a href="{% url 'postone' Posts.pk%}">{{ Posts.title }}</a></h2>
+            Did by &nbsp;<strong style="font-size:15px">{{ Posts.author }}</strong>
+            &nbsp; - &nbsp;
+            {{ Posts.date_posted }}
+            <br>
+            <br>
+            <p style="font-weight: bold; font-size:15px">{{ Posts.text }}</p>
+            <br>
+            <span class="glyphicon glyphicon-thumbs-up" style="color:blue; font-size:20px">{{ Posts.likes }}</span>
+            &nbsp;
+            <span class="glyphicon glyphicon-thumbs-down" style="color:red; font-size:20px">{{ Posts.dislikes }}</span>
+            <br>
+            <br>
+        </div>
+        <br>
+        <br>
+    {% endfor %}
+
 
 {% endblock %}

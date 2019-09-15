@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 from django.conf import settings
 
 class Song(models.Model):
@@ -31,8 +32,12 @@ class NewPost_Likes_Dislikes(models.Model):
     title = models.CharField(max_length=255)
     text = models.CharField(max_length=255)
     author = models.CharField(max_length=100)
-    likes = models.CharField(max_length=100)
-    dislikes = models.CharField(max_length=100)
+    likes = models.CharField(max_length=100,default=0)
+    dislikes = models.CharField(max_length=100, default=0)
+    date_posted = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ['-date_posted']
 
 
     def __str__(self):
@@ -92,3 +97,10 @@ class Likes_And_Dislikes(models.Model):
 
     def __str__(self):
         return self.author
+
+
+class LeaveAComment(models.Model):
+    content = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
+    author = models.CharField(max_length=100)
+    date_posted = models.DateTimeField(default=timezone.now)

@@ -10,4 +10,6 @@ urlpatterns = [
     path('post', views.form, name="post"),
     path('likes', views.likes, name="likes"),
     path('postone/<int:pk>', views.get_one_post_likes_dislikes, name="postone"),
+
+    path('test', views.test, name="test")
 ]

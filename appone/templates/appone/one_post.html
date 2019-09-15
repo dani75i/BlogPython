@@ -8,17 +8,53 @@
 
 <br>
 
-Dib by {{ user.username }}
+Dib by {{ author }}
 
 <br>
 <br>
 
 <form action="" method="POST">
     {% csrf_token %}
-    <button type="submit" name="likes" class="btn btn-primary">Likes</button>
-    <h3>{{ likes  }}</h3>
-    <button type="submit" name="dislikes" class="btn btn-danger">Dislikes</button>
-    <h3>{{ dislikes  }}</h3>
+    <button type="submit" name="likes" class="btn btn-primary">
+        <span class="glyphicon glyphicon-thumbs-up"></span>
+        {{ likes  }}
+    </button>
+    <button type="submit" name="dislikes" class="btn btn-danger">
+        <span class="glyphicon glyphicon-thumbs-down"></span>
+        {{ dislikes  }}
+    </button>
 </form>
 
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ comment|crispy }}
+    <button type="submit" name="leave_comment" class="btn btn-primary">SUBMIT</button>
+</form>
+
+
+    <br>
+
+    {% for Posts in all_comments %}
+        <div style="border: 2px solid black; padding: 20px;
+         text-align:center; width:700px; margin: 0 auto;">
+            <h1>{{ Posts.author | title }}</h1>
+            <p>{{ Posts.content }}</p>
+            {{ Posts.date_posted }}
+        </div>
+        <br>
+        <br>
+    {% endfor %}
+
+
+
 {% endblock %}
+
+
+

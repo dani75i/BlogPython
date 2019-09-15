@@ -3,15 +3,18 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from django.views.generic import ListView
-from appone.forms import TestForm
+from appone.forms import TestForm, LeaveComment
 from appone.models import Post, NewPost, Dislikes, \
-    Likesd, Dislikes_Author, Likes_Dislikes, Dislikes_Likes, Likes_And_Dislikes, NewPost_Likes_Dislikes
+    Likesd, Dislikes_Author, Likes_Dislikes, Dislikes_Likes, \
+    Likes_And_Dislikes, NewPost_Likes_Dislikes, LeaveAComment
 
 
 class PostListView(ListView):
     model = NewPost_Likes_Dislikes
     template_name = 'appone/home.html'
     context_object_name = 'Post'
+    # paginate_by = 2
+
 
 
 @login_required
@@ -139,6 +142,23 @@ def get_one_post_likes_dislikes(request, pk):
             Likes_And_Dislikes.objects.filter(author=request.user.username, title=NewPost_Likes_Dislikes.objects.get(pk=pk).title).update(
                 dislikes=1)
 
+    if request.method == "POST" and "leave_comment" in request.POST:
+
+        comment = LeaveComment(request.POST)
+        if comment.is_valid():
+            song = LeaveAComment(content=comment.cleaned_data['content'],
+                                 title=NewPost_Likes_Dislikes.objects.get(pk=pk).title,
+                                 author=request.user.username)
+            song.save()
+    else:
+        comment = LeaveComment()
+
+
+    all_comments = ""
+
+    for s in LeaveAComment.objects.all().filter(title=NewPost_Likes_Dislikes.objects.get(pk=pk).title):
+        all_comments = all_comments + s.content
+
     likes = 0
 
     for s in Likes_And_Dislikes.objects.all().filter(title=NewPost_Likes_Dislikes.objects.get(pk=pk).title):
@@ -157,6 +177,13 @@ def get_one_post_likes_dislikes(request, pk):
                'text': NewPost_Likes_Dislikes.objects.get(pk=pk).text,
                'author': NewPost_Likes_Dislikes.objects.get(pk=pk).author,
                "likes": likes,
-               "dislikes": dislikes}
+               "dislikes": dislikes,
+               "comment": comment,
+               "all_comments": LeaveAComment.objects.order_by('-date_posted').all().filter(title=NewPost_Likes_Dislikes.objects.get(pk=pk).title)}
 
     return HttpResponse(template.render(context, request))
+
+
+def test(request):
+
+    return render(request, 'appone/test.html')
