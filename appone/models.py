@@ -35,6 +35,7 @@ class NewPost_Likes_Dislikes(models.Model):
     likes = models.CharField(max_length=100,default=0)
     dislikes = models.CharField(max_length=100, default=0)
     date_posted = models.DateTimeField(default=timezone.now)
+    number_comments = models.CharField(max_length=100,default=0)
 
     class Meta:
         ordering = ['-date_posted']

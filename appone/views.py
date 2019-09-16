@@ -153,6 +153,8 @@ def get_one_post_likes_dislikes(request, pk):
     else:
         comment = LeaveComment()
 
+    test = LeaveAComment.objects.all().filter(title=NewPost_Likes_Dislikes.objects.get(pk=pk)).count()
+    NewPost_Likes_Dislikes.objects.filter(pk=pk).update(number_comments=str(test))
 
     all_comments = ""
 
@@ -179,7 +181,7 @@ def get_one_post_likes_dislikes(request, pk):
                "likes": likes,
                "dislikes": dislikes,
                "comment": comment,
-               "all_comments": LeaveAComment.objects.order_by('-date_posted').all().filter(title=NewPost_Likes_Dislikes.objects.get(pk=pk).title)}
+               "all_comments": LeaveAComment.objects.order_by('-date_posted').all().filter(title=NewPost_Likes_Dislikes.objects.get(pk=pk).title),}
 
     return HttpResponse(template.render(context, request))
 
