@@ -16,15 +16,27 @@
       <a class="navbar-brand" href="{% url 'home' %}">My Blog</a>
     </div>
 
+     <ul style="padding-top:5px" class="nav navbar-nav navbar-right">
+         <li>
+            <form class="form-inline" method="GET">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" name="q" aria-label="Search">
+                <button name="search" class="btn btn-primary my-2 my-sm-0" type="submit">
+                    Search
+                </button>
+            </form>
+        </li>
+     </ul>
+
     <ul class="nav navbar-nav navbar-right">
+
 
      {% if user.is_authenticated %}
         <li><a href="{% url 'profile' %}"><span></span>Welcome {{ user.username }}</a></li>
         <li><a href="{% url 'post' %}"><span class="glyphicon glyphicon-pencil"></span>New Post</a></li>
-        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
+        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-off"></span> Logout</a></li> &nbsp;
       {% else %}
         <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> &nbsp;
       {% endif %}
     </ul>
   </div>

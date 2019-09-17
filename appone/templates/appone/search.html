@@ -1,0 +1,42 @@
+{% extends "appone/base.html"%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+{% for Posts in search %}
+<div class="container">
+  <div style="height:250px; border: 2px solid #d6d6d6" class="row">
+
+    <div style="padding: 60px;border-right: 1px solid #d6d6d6;height:250px;text-align:center; " class="col-xs-4 col-sm-4">
+        Post did by
+        <h1><strong style="font-size:25px">#{{ Posts.author }}</strong></h1>
+
+    </div>
+
+    <div  style="padding: 20px; height:250px; text-align:center;" class="col-xs-8 col-sm-8">
+      <!--<h3><a href="{% url 'postone' Posts.pk%}">{{ Posts.title }}</a></h3>-->
+      <h3>{{ Posts.title }}</h3>
+            <br>
+            <p style="font-weight: bold; font-size:15px">{{ Posts.text}}</p>
+            <br>
+            {{ Posts.date_posted }}
+            <br>
+            <br>
+            <span class="glyphicon glyphicon-thumbs-up" style="color:blue; font-size:20px">{{ Posts.likes }}</span>&nbsp;
+            <span class="glyphicon glyphicon-thumbs-down" style="color:red; font-size:20px">{{ Posts.dislikes }}</span>
+            &nbsp;
+            <span class="glyphicon glyphicon-comment" style="font-size:20px">{{ Posts.number_comments }}</span>
+
+    </div>
+  </div>
+</div>
+<br>
+<br>
+{% endfor %}
+
+
+{% endblock %}
+
+
+

@@ -39,6 +39,15 @@ Dib by {{ author }}
     <button type="submit" name="leave_comment" class="btn btn-primary">SUBMIT</button>
 </form>
 
+<br>
+    {% if messages %}
+    {% for message in  messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <br>
 
     <br>
 

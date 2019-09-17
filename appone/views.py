@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from django.views.generic import ListView
@@ -13,8 +14,12 @@ class PostListView(ListView):
     model = NewPost_Likes_Dislikes
     template_name = 'appone/home.html'
     context_object_name = 'Post'
-    # paginate_by = 2
 
+
+def search(request, word=None):
+    if request.method == "GET" and "search" in request.GET:
+        searching = NewPost_Likes_Dislikes.objects.filter(text__regex=word)
+        return render(request, 'appone/search.html', {"search": searching})
 
 
 @login_required
@@ -27,6 +32,8 @@ def form(request):
                            text=form.cleaned_data['text'],
                            author=request.user.username)
             song.save()
+            messages.success(request, 'Your post has been saved')
+            return redirect('home')
     else:
         form = TestForm()
 
@@ -63,6 +70,8 @@ def likes(request):
             like = Dislikes_Author.objects.get(author=request.user.username).dislikes
             like +=1
             Dislikes_Author.objects.filter(author=request.user.username).update(dislikes=like)
+
+        return redirect('http://localhost:8000')
 
     result = 0
 
@@ -150,6 +159,8 @@ def get_one_post_likes_dislikes(request, pk):
                                  title=NewPost_Likes_Dislikes.objects.get(pk=pk).title,
                                  author=request.user.username)
             song.save()
+            messages.success(request, 'Your comment has been saved')
+
     else:
         comment = LeaveComment()
 

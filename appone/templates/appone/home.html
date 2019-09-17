@@ -32,6 +32,17 @@
         <!--<br>-->
     <!--{% endfor %}-->
 
+
+    <br>
+    {% if messages %}
+    {% for message in  messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <br>
+
 {% for Posts in Post %}
 <div class="container">
   <div style="height:250px; border: 2px solid #d6d6d6" class="row">

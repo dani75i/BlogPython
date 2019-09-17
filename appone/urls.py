@@ -9,6 +9,7 @@ urlpatterns = [
     path('', PostListView.as_view(), name="home"),
     path('post', views.form, name="post"),
     path('likes', views.likes, name="likes"),
+    path('search/<str:word>', views.search, name="search"),
     path('postone/<int:pk>', views.get_one_post_likes_dislikes, name="postone"),
 
     path('test', views.test, name="test")
