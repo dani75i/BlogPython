@@ -18,9 +18,10 @@
 
      <ul style="padding-top:5px" class="nav navbar-nav navbar-right">
          <li>
-            <form class="form-inline" method="GET">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" name="q" aria-label="Search">
-                <button name="search" class="btn btn-primary my-2 my-sm-0" type="submit">
+            <form class="form-inline" action="{% url 'search' %}" method="GET">
+                <!--{% csrf_token %}-->
+                <input class="form-control mr-sm-2" name="q" type="text" id="query" placeholder="Search" aria-label="Search">
+                <button class="btn btn-primary my-2 my-sm-0" type="submit">
                     Search
                 </button>
             </form>
@@ -42,13 +43,7 @@
   </div>
 </nav>
 
-<div style="padding: 20px;
-  text-align: center;
-  background: #B9D2E3;
-  color: white;
-  font-size: 30px;" class="header">
-  <p>Post a comment !</p>
-</div>
+
 
 {% block content %}{% endblock %}
 

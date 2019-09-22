@@ -16,11 +16,21 @@ class PostListView(ListView):
     context_object_name = 'Post'
 
 
-def search(request, word=None):
-    if request.method == "GET" and "search" in request.GET:
-        searching = NewPost_Likes_Dislikes.objects.filter(text__regex=word)
-        return render(request, 'appone/search.html', {"search": searching})
+# def search(request, word=None):
+#     # if request.method == "GET" and "search" in request.GET:
+#     searching = NewPost_Likes_Dislikes.objects.filter(text__regex=word)
+#     return render(request, 'appone/search.html', {"search": searching})
 
+def search(request):
+    if request.method == "GET":
+
+        word = request.GET['q'].strip()
+        print("WORD", word)
+        searching = NewPost_Likes_Dislikes.objects.filter(text__regex=word)
+        if searching:
+            return render(request, 'appone/search.html', {"search": searching})
+
+        return render(request, 'appone/search_empty.html', {})
 
 @login_required
 def form(request):
