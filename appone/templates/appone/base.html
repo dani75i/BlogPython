@@ -10,17 +10,17 @@
 </head>
 <body >
 
-<nav class="navbar navbar-inverse">
+<nav style="padding-top:10px; padding-bottom:10px" class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="{% url 'home' %}">My Blog</a>
     </div>
 
-     <ul style="padding-top:5px" class="nav navbar-nav navbar-right">
+     <ul style="padding-top:10px;" class="nav navbar-nav navbar-right">
          <li>
             <form class="form-inline" action="{% url 'search' %}" method="GET">
-                <!--{% csrf_token %}-->
                 <input class="form-control mr-sm-2" name="q" type="text" id="query" placeholder="Search" aria-label="Search">
+
                 <button class="btn btn-primary my-2 my-sm-0" type="submit">
                     Search
                 </button>

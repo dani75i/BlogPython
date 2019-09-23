@@ -2,11 +2,17 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-
-    <form action="" method="POST">
+<div style="width:550px" class="container">
+    <h1 style="text-align:center;font-weight: bold;">Sign in</h1>
+    <br>
+    <br>
+  <form action="" method="POST">
         {% csrf_token %}
         {{ form|crispy }}
-        <input type="submit" value="Sign Up">
+      <br>
+      <button  type="submit" class="btn btn-primary btn-lg center-block">Sign In</button>
     </form>
+</div>
+
 
 {% endblock content %}
