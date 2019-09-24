@@ -84,7 +84,7 @@
 
     {% for Posts in all_comments %}
         <div style="border: 1px solid black; padding: 20px;
-         text-align:center; width:700px; margin: 0 auto;">
+         text-align:center">
             <h1>{{ Posts.author | title }}</h1>
             <p>{{ Posts.content }}</p>
             {{ Posts.date_posted }}
