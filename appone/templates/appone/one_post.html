@@ -49,9 +49,7 @@
 
 <br>
 <br>
-<br>
-<br>
-<br>
+
 
 <br>
     {% if messages %}
@@ -63,20 +61,29 @@
     {% endif %}
     <br>
 
-<div style="width:550px" class="container">
+    <div style="padding: 20px;
+  text-align: center;
+  background: #B9D2E3;
+  color: white;
+  font-size: 30px;" class="header">
+
+</div>
+
+    <br>
+    <br>
+
+<div  class="container">
     <form action="" method="POST">
         {% csrf_token %}
         {{ comment|crispy }}
         <button type="submit" name="leave_comment" class="btn btn-primary">SUBMIT</button>
     </form>
-</div>
 
-
-
+    <br>
     <br>
 
     {% for Posts in all_comments %}
-        <div style="border: 2px solid black; padding: 20px;
+        <div style="border: 1px solid black; padding: 20px;
          text-align:center; width:700px; margin: 0 auto;">
             <h1>{{ Posts.author | title }}</h1>
             <p>{{ Posts.content }}</p>
@@ -86,6 +93,12 @@
         <br>
         <br>
     {% endfor %}
+
+</div>
+
+
+
+
 
 
 
