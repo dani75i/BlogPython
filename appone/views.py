@@ -12,7 +12,7 @@ from appone.models import Post, NewPost, Dislikes, \
 
 class PostListView(ListView):
     model = NewPost_Likes_Dislikes
-    template_name = 'appone/home.html'
+    template_name = 'appone/all_posts.html'
     context_object_name = 'Post'
 
 
@@ -47,52 +47,7 @@ def form(request):
     else:
         form = TestForm()
 
-    return render(request, 'appone/index.html', {"form": form})
-
-
-@login_required
-def likes(request):
-
-    if request.method == "POST" and "likes" in request.POST:
-        o = Likesd(likes=0)
-        o.save()
-        like = Likesd.objects.get(pk=1).likes
-        like +=1
-        Likesd.objects.filter(pk=1).update(likes=like)
-
-    elif request.method == "POST" and "dislikes" in request.POST:
-        o = Dislikes(dislikes=0)
-        o.save()
-        like = Dislikes.objects.get(pk=1).dislikes
-        like +=1
-        Dislikes.objects.filter(pk=1).update(dislikes=like)
-
-    elif request.method == "POST" and "dislikes_author" in request.POST:
-
-        if Dislikes_Author.objects.filter(author=request.user.username).exists():
-            like = Dislikes_Author.objects.get(author=request.user.username).dislikes
-            like += 1
-            Dislikes_Author.objects.filter(author=request.user.username).update(dislikes=like)
-
-        elif not Dislikes_Author.objects.filter(author=request.user.username).exists():
-            o = Dislikes_Author(author=request.user.username, dislikes=0)
-            o.save()
-            like = Dislikes_Author.objects.get(author=request.user.username).dislikes
-            like +=1
-            Dislikes_Author.objects.filter(author=request.user.username).update(dislikes=like)
-
-        return redirect('http://localhost:8000')
-
-    result = 0
-
-    for s in Dislikes_Author.objects.all():
-        result = result + s.dislikes
-
-    return render(request, 'appone/likes.html',
-                  {"likes": Likesd.objects.get(pk=1).likes,
-                   "dislikes": Dislikes.objects.get(pk=1).dislikes,
-                   "dislikes_author": result,
-                   })
+    return render(request, 'appone/add_post.html', {"form": form})
 
 
 @login_required
@@ -210,3 +165,7 @@ def get_one_post_likes_dislikes(request, pk):
 def test(request):
 
     return render(request, 'appone/test.html')
+
+def blog(request):
+
+    return render(request, 'appone/all_posts.html')
