@@ -73,9 +73,10 @@
 
 <h1> Comments {{ number_comments }}</h1>
 
-    <form action="" method="POST">
+    <form action="" method="POST" >
         {% csrf_token %}
         {{ comment|crispy }}
+
         <button type="submit" name="leave_comment" class="btn btn-primary">SUBMIT</button>
     </form>
 

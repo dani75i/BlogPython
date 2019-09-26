@@ -29,6 +29,7 @@
    {% for Posts in Post %}
 
   <div style="padding-top:20px" class="w3-card-4 w3-margin w3-white">
+      <a style="color:black" href="{% url 'postone' Posts.pk%}"></a>
     <div class="w3-container">
       <h3><b><a style="color:black" href="{% url 'postone' Posts.pk%}">{{ Posts.title }}</a></b></h3>
 
@@ -49,6 +50,7 @@
           </p>
 
       </div>
+
     </div>
   </div>
     {% endfor %}
@@ -62,7 +64,7 @@
 <!-- Introduction menu -->
 <div class="w3-col l4">
   <!-- About Card -->
-  <div style="padding-top:20px" class="w3-card w3-margin w3-margin-top">
+  <div style="padding-top:20px" class="w3-card w3-margin w3-margin-top w3-orange">
 
     <div style="padding-top:20px" class="w3-container w3-white">
       <h4><b>Daniel Leite</b></h4>
