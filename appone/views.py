@@ -154,6 +154,8 @@ def get_one_post_likes_dislikes(request, pk):
     context = {'title': NewPost_Likes_Dislikes.objects.get(pk=pk).title,
                'text': NewPost_Likes_Dislikes.objects.get(pk=pk).text,
                'author': NewPost_Likes_Dislikes.objects.get(pk=pk).author,
+               'date_posted': NewPost_Likes_Dislikes.objects.get(pk=pk).date_posted,
+               'number_comments': NewPost_Likes_Dislikes.objects.get(pk=pk).number_comments,
                "likes": likes,
                "dislikes": dislikes,
                "comment": comment,

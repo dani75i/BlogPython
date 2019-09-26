@@ -8,40 +8,40 @@
 </div>
 
 <br>
-<br>
-{% for Posts in search %}
 
 
-<div class="container">
-  <div style="border: 2px solid #d6d6d6" class="row">
+<div class="w3-col l8 s12">
+  <!-- Blog entry -->
+   {% for Posts in search %}
 
-    <div style="padding-top: 60px;text-align:center; " class="col-xs-4 col-sm-4">
-        Post did by
-        <h1><strong style="font-size:25px">#{{ Posts.author }}</strong></h1>
+  <div style="padding-top:20px" class="w3-card-4 w3-margin w3-white">
+    <div class="w3-container">
+      <h3><b><a style="color:black" href="{% url 'postone' Posts.pk%}">{{ Posts.title }}</a></b></h3>
 
+      <h5><span style="color:blue; font-size:15px">@{{ Posts.author }}</span>&nbsp;<span class="w3-opacity">{{ Posts.date_posted }}</span></h5>
+        <br>
     </div>
 
-    <div  style="border-left: 1px solid #d6d6d6;padding: 20px; text-align:center;" class="col-xs-8 col-sm-8">
-      <h3><a href="{% url 'postone' Posts.pk%}">{{ Posts.title }}</a></h3>
-            <br>
-            <!--<p style="font-weight: bold; font-size:15px">{{ Posts.text|truncatechars:70 }}</p>-->
-            <p style="font-weight: bold; font-size:15px">{{ Posts.text|truncatechars:200}}</p>
-            <br>
-            {{ Posts.date_posted }}
-            <br>
-            <br>
-            <span class="glyphicon glyphicon-thumbs-up" style="color:blue; font-size:20px">{{ Posts.likes }}</span>&nbsp;
-            <span class="glyphicon glyphicon-thumbs-down" style="color:red; font-size:20px">{{ Posts.dislikes }}</span>
-            &nbsp;
-            <span class="glyphicon glyphicon-comment" style="font-size:20px">{{ Posts.number_comments }}</span>
+    <div class="w3-container">
+      <p>
+          {{ Posts.text|truncatechars:200}}
+      </p>
+        <br>
+      <div style="text-align:center">
+          <p>
+              <span style="color:blue; font-weight: bold; font-size:16px"><span style="font-size:20px" class="glyphicon glyphicon-thumbs-up"> </span>{{ Posts.likes }} </span> &nbsp;
+              <span style="color:red; font-weight: bold; font-size:16px"><span style="font-size:20px" class="glyphicon glyphicon-thumbs-down"> </span>{{ Posts.dislikes }} </span> &nbsp;</span>
+              <span style="color:black; font-weight: bold; font-size:16px"><span style="font-size:20px" class="glyphicon glyphicon-comment"></span> {{ Posts.number_comments }} </span> &nbsp;
+          </p>
 
+      </div>
     </div>
   </div>
+    {% endfor %}
+  <hr>
+<!-- END BLOG ENTRIES -->
 </div>
-<br>
-<br>
 
-{% endfor %}
 
 
 {% endblock %}

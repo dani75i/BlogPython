@@ -2,67 +2,26 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
 
 <br>
 <br>
 
- <!--<div style="padding-top:20px; text-align:center" class="w3-card-4 w3-margin w3-white">-->
-    <!--<div class="w3-container">-->
-      <!--<h1>toto</h1>-->
-    <!--</div>-->
-    <!--</div>-->
 
-<div style="padding-top:20px; text-align:center" class="w3-card-4 w3-margin w3-white">
-<div class="w3-container">
-  <div style=" background-color:white" class="row">
+<div style="padding-top:20px" class="w3-card-4 w3-margin w3-white">
+    <div class="w3-container">
+      <h3><b>{{ title }}</b></h3>
 
-    <div style="padding-top: 60px;text-align:center; " class="col-xs-4 col-sm-4">
-        Post did by
-        <h1><strong style="font-size:25px">#{{ author }}</strong></h1>
-
+      <h5><span style="color:blue">@{{ author }}</span>&nbsp;<span class="w3-opacity">{{ date_posted }}</span></h5>
+        <br>
     </div>
 
-    <div  style="border-left: 1px solid #d6d6d6;padding: 20px;" class="col-xs-8 col-sm-8">
-      <h3 style="font-weight: bold; font-size:30px;text-align:center">{{ title }}</h3>
-            <br>
-            <br>
-            <p style="">{{ text}}</p>
-            <br>
-            {{ Posts.date_posted }}
-            <br>
-            <br>
-
+    <div class="w3-container">
+      <p>
+          {{ text|linebreaks}}
+      </p>
+        <br>
     </div>
   </div>
-</div>
-</div>
-
-<!--&lt;!&ndash; Grid &ndash;&gt;-->
-<!--<div class="w3-row">-->
-
-<!--&lt;!&ndash; Blog entries &ndash;&gt;-->
-<!--<div class="w3-col l8 s12">-->
-
-
-  <!--<div style="padding-top:20px" class="w3-card-4 w3-margin w3-white">-->
-    <!--<div class="w3-container">-->
-      <!--<h3><b>{{ title }}</b></h3>-->
-
-      <!--<h5><span style="color:blue">@{{ author }}</span>&nbsp;<span class="w3-opacity">{{ Posts.date_posted }}</span></h5>-->
-        <!--<br>-->
-    <!--</div>-->
-
-    <!--<div class="w3-container">-->
-      <!--<p>-->
-          <!--{{ text}}-->
-      <!--</p>-->
-        <!--<br>-->
-    <!--</div>-->
-  <!--</div>-->
-  <!--<hr>-->
-<!--&lt;!&ndash; END BLOG ENTRIES &ndash;&gt;-->
-<!--</div>-->
 
 
 
@@ -97,7 +56,11 @@
     {% endif %}
     <br>
 
-    <div style="padding: 20px;
+
+
+<div  class="container">
+
+    <div style="padding: 10px;
   text-align: center;
   background: #B9D2E3;
   color: white;
@@ -108,7 +71,8 @@
     <br>
     <br>
 
-<div  class="container">
+<h1> Comments {{ number_comments }}</h1>
+
     <form action="" method="POST">
         {% csrf_token %}
         {{ comment|crispy }}
@@ -122,7 +86,7 @@
         <div style="border: 1px solid black; padding: 20px;
          text-align:center">
             <h1>{{ Posts.author | title }}</h1>
-            <p>{{ Posts.content }}</p>
+            <p>{{ Posts.content|linebreaks }}</p>
             {{ Posts.date_posted }}
 
         </div>
