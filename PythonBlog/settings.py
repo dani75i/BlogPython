@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'appone.apps.ApponeConfig',
     'users.apps.UsersConfig',
     'crispy_forms',
+    'ckeditor',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -119,8 +121,60 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'toolbar': None,
+#     }
+# }
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'width': '100%',
+        # 'skin': 'moono',
+        # 'toolbarCanCollapse': True,
+        'codeSnippet_theme': 'tomorrow-night',
+        'toolbar_Custom': [
+            ['Bold', 'Format', 'Italic', 'Underline'],
+            ['TextColor', 'BGColor'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat'],
+            ['CodeSnippet']
+        ],
+        # uncomment to restrict only those languages
+        # 'codeSnippet_languages': {
+        #     'python': 'Python Guru',
+        #     'javascript': 'JavaScript Fu',
+        #     'php': 'PHP Ninja',
+        #     'c': 'You custom funny language name'
+        # },
+        # 'toolbar': 'MyCustomToolbar',
+        # 'removePlugins': 'stylesheetparser',
+        'extraPlugins': ','.join(
+            [
+                # add the follow plugins
+                'codesnippet',
+                # 'code_sc'
+                # 'codemirror'
+                # 'widget',
+                # 'dialog',
+            ]),
+    }
+}
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
 
 STATIC_URL = '/static/'
+STATICFILE_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+    ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -128,3 +182,6 @@ MEDIA_URL = '/media/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
+
+CKEDITOR_JQUERY_URL = os.path.join(STATIC_URL, 'js/jquery.min.js')
+# CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'

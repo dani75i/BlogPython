@@ -1,7 +1,8 @@
 {% extends "appone/new_base.html"%}
 {% load crispy_forms_tags %}
-{% block content %}
+{% load static %}
 
+{% block content %}
 
 <br>
 <br>
@@ -17,7 +18,7 @@
 
     <div class="w3-container">
       <p>
-          {{ text|linebreaks}}
+          {{ text|safe|linebreaks}}
       </p>
         <br>
     </div>
@@ -26,6 +27,7 @@
 
 
 <br>
+
 <br>
 
 <div style="text-align:center" class="container">
@@ -61,7 +63,7 @@
 <div  class="container">
 
     <div style="padding: 10px;
-  text-align: center;
+  <!--text-align: left;-->
   background: #B9D2E3;
   color: white;
   font-size: 30px;" class="header">
@@ -75,8 +77,8 @@
 
     <form action="" method="POST" >
         {% csrf_token %}
-        {{ comment|crispy }}
-
+        {{ comment| crispy }}
+        {{ comment.media }}
         <button type="submit" name="leave_comment" class="btn btn-primary">SUBMIT</button>
     </form>
 
@@ -84,10 +86,10 @@
     <br>
 
     {% for Posts in all_comments %}
-        <div style="border: 1px solid black; padding: 20px;
-         text-align:center">
+        <div style="border: 1px solid red; padding: 20px;
+         text-align:left">
             <h1>{{ Posts.author | title }}</h1>
-            <p>{{ Posts.content|linebreaks }}</p>
+           {{ Posts.content|safe}}
             {{ Posts.date_posted }}
 
         </div>

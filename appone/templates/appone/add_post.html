@@ -9,9 +9,10 @@
     <h1 style="text-align:center;font-weight: bold;">Post something ...</h1>
     <br>
     <br>
-  <form action="" method="POST">
+  <form style="text-align:center" action="" method="POST">
     {% csrf_token %}
     {{ form|crispy }}
+      {{ form.media }}
     <button type="submit" class="btn btn btn-primary btn-lg center-block">Submit</button>
 </form>
 
