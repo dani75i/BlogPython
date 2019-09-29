@@ -146,11 +146,11 @@ def get_one_post_likes_dislikes(request, pk):
 
     NewPost_Likes_Dislikes.objects.filter(pk=pk).update(dislikes=dislikes)
 
-    if request.method == "GET":
-        count = NewPost_Likes_Dislikes.objects.get(pk=pk).count
-        count = count + 1
-        NewPost_Likes_Dislikes.objects.filter(pk=pk).update(count=count)
-        count = NewPost_Likes_Dislikes.objects.get(pk=pk).count
+    # if request.method == "GET":
+    #     count = NewPost_Likes_Dislikes.objects.get(pk=pk).count
+    #     count = count + 1
+    #     NewPost_Likes_Dislikes.objects.filter(pk=pk).update(count=count)
+    #     count = NewPost_Likes_Dislikes.objects.get(pk=pk).count
 
     context = {
                'title': NewPost_Likes_Dislikes.objects.get(pk=pk).title,
@@ -162,7 +162,7 @@ def get_one_post_likes_dislikes(request, pk):
                "dislikes": dislikes,
                "comment": comment,
                "all_comments": LeaveAComment.objects.order_by('-date_posted').all().filter(title=NewPost_Likes_Dislikes.objects.get(pk=pk).title),
-               "count": count,
+               # "count": count,
                }
 
     return HttpResponse(template.render(context, request))
