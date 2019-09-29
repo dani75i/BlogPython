@@ -31,23 +31,21 @@
   <div style="padding-top:20px" class="w3-card-4 w3-margin w3-white">
       <a style="color:black" href="{% url 'postone' Posts.pk%}"></a>
     <div class="w3-container">
-      <h3><b><a style="color:black" href="{% url 'postone' Posts.pk%}">{{ Posts.title }}</a></b></h3>
-
-      <h5><span style="color:blue; font-size:15px">@{{ Posts.author }}</span>&nbsp;<span class="w3-opacity">{{ Posts.date_posted }}</span></h5>
+      <h2><b><a style="color:black" href="{% url 'postone' Posts.pk%}">{{ Posts.title }}</a></b></h2>
+        <br>
+      <h5><span style="color:blue; font-size:20px">@{{ Posts.author }}</span>&nbsp;<span class="w3-opacity">{{ Posts.date_posted }}</span></h5>
         <br>
     </div>
 
     <div class="w3-container">
-      <p>
-          <!--{{ Posts.text|safe|truncatechars:400}}-->
-          <!--{{ Posts.text|safe|truncatechars:200}}-->
-      </p>
+
         <br>
       <div style="text-align:center">
           <p>
               <span style="color:blue; font-weight: bold; font-size:16px"><span style="font-size:20px" class="glyphicon glyphicon-thumbs-up"> </span>{{ Posts.likes }} </span> &nbsp;
               <span style="color:red; font-weight: bold; font-size:16px"><span style="font-size:20px" class="glyphicon glyphicon-thumbs-down"> </span>{{ Posts.dislikes }} </span> &nbsp;</span>
               <span style="color:black; font-weight: bold; font-size:16px"><span style="font-size:20px" class="glyphicon glyphicon-comment"></span> {{ Posts.number_comments }} </span> &nbsp;
+              <span style="color:black; font-weight: bold; font-size:16px"><span style="font-size:20px" class="glyphicon glyphicon-eye-open"></span> {{ Posts.count }} </span> &nbsp;
           </p>
 
       </div>

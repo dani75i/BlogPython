@@ -14,6 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+print(BASE_DIR)
 
 
 # Quick-start development settings - unsuitable for production
@@ -171,9 +172,7 @@ CKEDITOR_IMAGE_BACKEND = "pillow"
 
 
 STATIC_URL = '/static/'
-STATICFILE_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-    ]
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -182,6 +181,3 @@ MEDIA_URL = '/media/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
-
-CKEDITOR_JQUERY_URL = os.path.join(STATIC_URL, 'js/jquery.min.js')
-# CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'

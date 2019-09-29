@@ -7,7 +7,7 @@ from django.views.generic import ListView
 from appone.forms import TestForm, LeaveComment
 from appone.models import Post, NewPost, Dislikes, \
     Likesd, Dislikes_Author, Likes_Dislikes, Dislikes_Likes, \
-    Likes_And_Dislikes, NewPost_Likes_Dislikes, LeaveAComment
+    Likes_And_Dislikes, NewPost_Likes_Dislikes, LeaveAComment, Count
 
 
 class PostListView(ListView):
@@ -146,7 +146,14 @@ def get_one_post_likes_dislikes(request, pk):
 
     NewPost_Likes_Dislikes.objects.filter(pk=pk).update(dislikes=dislikes)
 
-    context = {'title': NewPost_Likes_Dislikes.objects.get(pk=pk).title,
+    if request.method == "GET":
+        count = NewPost_Likes_Dislikes.objects.get(pk=pk).count
+        count = count + 1
+        NewPost_Likes_Dislikes.objects.filter(pk=pk).update(count=count)
+        count = NewPost_Likes_Dislikes.objects.get(pk=pk).count
+
+    context = {
+               'title': NewPost_Likes_Dislikes.objects.get(pk=pk).title,
                'text': NewPost_Likes_Dislikes.objects.get(pk=pk).text,
                'author': NewPost_Likes_Dislikes.objects.get(pk=pk).author,
                'date_posted': NewPost_Likes_Dislikes.objects.get(pk=pk).date_posted,
@@ -154,14 +161,23 @@ def get_one_post_likes_dislikes(request, pk):
                "likes": likes,
                "dislikes": dislikes,
                "comment": comment,
-               "all_comments": LeaveAComment.objects.order_by('-date_posted').all().filter(title=NewPost_Likes_Dislikes.objects.get(pk=pk).title),}
+               "all_comments": LeaveAComment.objects.order_by('-date_posted').all().filter(title=NewPost_Likes_Dislikes.objects.get(pk=pk).title),
+               "count": count,
+               }
 
     return HttpResponse(template.render(context, request))
 
 
 def test(request):
+    if request.method == "GET":
+        count = Count.objects.get(pk=1).count
+        print("BEFORE : ", count)
+        count = count + 1
+        count = Count.objects.filter(pk=1).update(count=count)
+        print("AFTER : ", count)
+        count = Count.objects.get(pk=1).count
 
-    return render(request, 'appone/test.html')
+    return render(request, 'appone/test.html', {"count": count})
 
 def blog(request):
 
