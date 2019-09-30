@@ -140,11 +140,11 @@ CKEDITOR_CONFIGS = {
         'codeSnippet_theme': 'tomorrow-night',
         'toolbar_Custom': [
             ['Bold', 'Format', 'Italic', 'Underline'],
-            ['TextColor', 'BGColor'],
             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
             ['Link', 'Unlink'],
             ['RemoveFormat'],
-            ['CodeSnippet']
+            ['CodeSnippet'],
+            ['TextColor'],
         ],
         # uncomment to restrict only those languages
         # 'codeSnippet_languages': {
@@ -160,9 +160,9 @@ CKEDITOR_CONFIGS = {
                 # add the follow plugins
                 'codesnippet',
                 # 'code_sc'
-                # 'codemirror'
                 # 'widget',
                 # 'dialog',
+                # 'dialogui',
             ]),
     }
 }

@@ -130,3 +130,8 @@ class LeaveAComment(models.Model):
 
 class Count(models.Model):
     count = models.IntegerField(default=0)
+
+class Counts(models.Model):
+    author = models.CharField(max_length=100)
+    title = models.CharField(max_length=255)
+    count = models.IntegerField(default=0)
