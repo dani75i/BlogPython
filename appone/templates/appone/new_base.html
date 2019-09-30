@@ -38,8 +38,14 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <script type="text/javascript" src="https://cdn.ckeditor.com/4.13.0/standard-all/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
 
 
-
 <body class="w3-light-white">
+
+<!--&nbsp;-->
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'appone/css/new_base.css' %}">
+
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a style="font-weight:bold; font-size:25px; color:red" class="navbar-brand" href="{% url 'home' %}"> Take A Coffee !</a>
@@ -52,20 +58,20 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
       {% if user.is_authenticated %}
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'profile' %}"><span></span>Welcome {{ user.username }}</a>
+        <a class="nav-link" href="{% url 'profile' %}"><p class="nav"><span>Welcome {{ user.username }}</span></p></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'post' %}"><span class="glyphicon glyphicon-pencil"></span>New Post</a>
+        <a class="nav-link" href="{% url 'post' %}"><p class="nav"><span class="glyphicon glyphicon-pencil"></span>&nbsp; New Post</p></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'logout' %}"><span class="glyphicon glyphicon-off"></span> Logout</a>
+        <a class="nav-link" href="{% url 'logout' %}"><p class="nav"><span class="glyphicon glyphicon-off"></span>&nbsp; Logout</p></a>
       </li>
       {% else %}
        <li class="nav-item active">
-        <a class="nav-link" href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+        <a class="nav-link" href="{% url 'register' %}"><p class="nav"><span class="glyphicon glyphicon-user"></span>&nbsp; Sign Up</p></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+        <a class="nav-link" href="{% url 'login' %}"><p class="nav"><span class="glyphicon glyphicon-log-in"></span> &nbsp; Login</p></a>
       </li>
       {% endif %}
     </ul>

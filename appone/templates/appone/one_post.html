@@ -4,15 +4,18 @@
 
 {% block content %}
 
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'appone/css/one_post.css' %}">
+
 <br>
 <br>
 
 
 <div style="padding-top:20px" class="w3-card-4 w3-margin w3-white">
     <div class="w3-container">
-      <h3><b>{{ title }}</b></h3>
-
-      <h5><span style="color:blue">@{{ author }}</span>&nbsp;<span class="w3-opacity">{{ date_posted }}</span></h5>
+      <h1><b>{{ title }}</b></h1>
+      <h3><span style="color:blue">@{{ author }}</span>&nbsp;<span class="w3-opacity">{{ date_posted }}</span></h3>
         <br>
     </div>
 
@@ -24,11 +27,8 @@
     </div>
   </div>
 
-
-
 <br>
 
-<br>
 
 <div style="text-align:center" class="container">
     <form action="" method="POST">
@@ -45,7 +45,7 @@
 </div>
 
 <br>
-<br>
+
 
 
 <br>
@@ -59,21 +59,7 @@
     <br>
 
 
-
-<div  class="container">
-
-    <div style="padding: 10px;
-  <!--text-align: left;-->
-  background: #B9D2E3;
-  color: white;
-  font-size: 30px;" class="header">
-
-</div>
-
-    <br>
-    <br>
-
-<h1> Comments {{ number_comments }}</h1>
+<div style="text-align:center"class="container">
 
     <form action="" method="POST" >
         {% csrf_token %}
@@ -81,19 +67,20 @@
         {{ comment.media }}
         <button type="submit" name="leave_comment" class="btn btn-primary">SUBMIT</button>
     </form>
+</div>
 
-    <br>
-    <br>
+<br>
 
+<div id="totoo" class="container">
+
+    <h1> <span style="font-size:20px" class="glyphicon glyphicon-comment"> </span> &nbsp;Comments {{ number_comments }}</h1>
     {% for Posts in all_comments %}
-        <div style="border: 1px solid red; padding: 20px;
-         text-align:left">
-            <h1>{{ Posts.author | title }}</h1>
+        <div id="toto">
+            <h2>@{{ Posts.author | title }}</h2>
+            <br>
            {{ Posts.content|safe}}
             {{ Posts.date_posted }}
-
         </div>
-        <br>
         <br>
     {% endfor %}
 

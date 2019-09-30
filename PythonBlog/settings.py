@@ -135,8 +135,6 @@ CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Custom',
         'width': '100%',
-        # 'skin': 'moono',
-        # 'toolbarCanCollapse': True,
         'codeSnippet_theme': 'tomorrow-night',
         'toolbar_Custom': [
             ['Bold', 'Format', 'Italic', 'Underline'],

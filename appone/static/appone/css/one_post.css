@@ -1,0 +1,24 @@
+.comments {
+    border: 1px solid blue;
+    padding: 20px;
+    text-align:left"
+}
+
+/* Chat containers */
+#toto {
+  border: 2px solid #dedede;
+  background-color: white;
+  border-radius: 5px;
+  padding-top:10px;
+  padding-bottom:10px;
+  padding-left:10px
+}
+
+#totoo {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding-top:10px;
+  padding-bottom:10px;
+  padding-left:10px
+}
