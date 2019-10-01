@@ -21,8 +21,8 @@ class TestForm(forms.Form):
     #     choices=FAVORITE_LANGUAGES_CHOICES,
     # )
 
-    # tags = forms.ChoiceField(label="",
-    #     choices = FAVORITE_LANGUAGES_CHOICES, required=True)
+    tags = forms.ChoiceField(label="",
+        choices = FAVORITE_LANGUAGES_CHOICES, required=True)
 
     # text = forms.CharField(label="",
     #                        widget=forms.Textarea(attrs={'placeholder': 'Enter your text'}),

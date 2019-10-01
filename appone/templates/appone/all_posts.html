@@ -3,7 +3,9 @@
 
 {% block content %}
 
+{% load static %}
 
+<link rel="stylesheet" type="text/css" href="{% static 'appone/css/all_posts.css' %}">
 
 {% if messages %}
     {% for message in  messages %}
@@ -29,13 +31,38 @@
    {% for Posts in Post %}
 
   <div style="padding-top:20px" class="w3-card-4 w3-margin w3-white">
-      <a style="color:black" href="{% url 'postone' Posts.pk%}"></a>
     <div class="w3-container">
       <h2><b><a style="color:black" href="{% url 'postone' Posts.pk%}">{{ Posts.title }}</a></b></h2>
         <br>
       <h5><span style="color:blue; font-size:20px">@{{ Posts.author }}</span>&nbsp;<span class="w3-opacity">{{ Posts.date_posted }}</span></h5>
-        <!--<h8><button  class="btn btn-success ">#{{ Posts.tags }}</button></h8>-->
+        <h8><a style="color:black" href="{% url 'tag' Posts.tags%}">
+            {% if Posts.tags == "Python" %}
+          <button style="font-size:12px;background-color: green;border: hidden;" type="button" class="btn btn-primary">
+              #{{ Posts.tags }}
+          </button>
+          {% elif Posts.tags == "Java" %}
+          <button style="font-size:12px;background-color: blue;border: hidden;" type="button" class="btn btn-primary">
+              #{{ Posts.tags }}
+          </button>
+            {% elif Posts.tags == "JavaScript" %}
+          <button style="font-size:12px;background-color: #BDB76B;border: hidden;" type="button" class="btn btn-primary">
+              #{{ Posts.tags }}
+          </button>
+            {% elif Posts.tags == "JavaScript" %}
+          <button style="font-size:12px;background-color: black;border: hidden;" type="button" class="btn btn-primary">
+              #{{ Posts.tags }}
+          </button>
+            {% elif Posts.tags == "Ruby" %}
+          <button style="font-size:12px;background-color: red;border: hidden;" type="button" class="btn btn-primary">
+              #{{ Posts.tags }}
+          </button>
+            {% elif Posts.tags == "Go" %}
+          <button style="font-size:12px;background-color: black;border: hidden;" type="button" class="btn btn-primary">
+              #{{ Posts.tags }}
+          </button>
+          {% endif %}
 
+        </h8>
         <br>
     </div>
 

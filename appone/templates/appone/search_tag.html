@@ -4,13 +4,15 @@
 {% block content %}
 
 <div class="container">
-<h1 style="text-align:center;font-weight: bold;">Search results ...</h1>
+<h1 style="text-align:center;font-weight: bold;">Search tag ...</h1>
 </div>
 
 <br>
 
 
-   {% for Posts in search %}
+<!--<div class="w3-col l8 s12">-->
+  <!-- Blog entry -->
+   {% for Posts in search_tag %}
 
   <div style="padding-top:20px" class="w3-card-4 w3-margin w3-white">
     <div class="w3-container">
@@ -62,7 +64,8 @@
   </div>
     {% endfor %}
   <hr>
-</div>
+<!-- END BLOG ENTRIES -->
+<!--</div>-->
 
 
 
