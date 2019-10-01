@@ -34,6 +34,7 @@ def form(request):
         form = TestForm(request.POST)
         if form.is_valid():
             song = NewPost_Likes_Dislikes(title=form.cleaned_data['title'],
+                                          tags=form.cleaned_data['tags'],
                                           text=form.cleaned_data['text'],
                                           author=request.user.username)
             song.save()
@@ -45,7 +46,7 @@ def form(request):
     return render(request, 'appone/add_post.html', {"form": form})
 
 
-@login_required
+# @login_required
 def get_one_post_likes_dislikes(request, pk):
     template = loader.get_template('appone/one_post.html')
 

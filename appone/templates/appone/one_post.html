@@ -29,7 +29,7 @@
 
 <br>
 
-
+{% if user.is_authenticated %}
 <div style="text-align:center" class="container">
     <form action="" method="POST">
         {% csrf_token %}
@@ -69,7 +69,9 @@
     </form>
 </div>
 
+
 <br>
+
 
 <div id="totoo" class="container">
 
@@ -87,10 +89,51 @@
 </div>
 
 
+{% else %}
 
+<br>
 
+<div style="text-align:center"class="container">
 
+    <form action="" method="POST" >
+        {% csrf_token %}
+        {{ comment| crispy }}
+        {{ comment.media }}
 
+    </form>
+    <br>
+    <h2 id="post"> Do you want to post your answer ?</h2>
+    <br>
+    <button type="button" class="btn btn-info btn-rounded">
+        <a style="color:white; font-size:13px" class="nav-link" href="{% url 'register' %}">Sign up</a>
+    </button> &nbsp; or &nbsp;
+    <button type="button" class="btn btn-success btn-rounded">
+        <a style="color:white; font-size:13px" class="nav-link" href="{% url 'login' %}">Sign in</a>
+    </button>
+
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
+<div id="totoo" class="container">
+
+    <h1> <span style="font-size:20px" class="glyphicon glyphicon-comment"> </span> &nbsp;Comments {{ number_comments }}</h1>
+    {% for Posts in all_comments %}
+        <div id="toto">
+            <h2>@{{ Posts.author | title }}</h2>
+            <br>
+           {{ Posts.content|safe}}
+            {{ Posts.date_posted }}
+        </div>
+        <br>
+    {% endfor %}
+
+</div>
+
+{% endif %}
 
 {% endblock %}
 

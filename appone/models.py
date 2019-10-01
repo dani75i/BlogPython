@@ -49,7 +49,6 @@ class NewPost(models.Model):
 
 class NewPost_Likes_Dislikes(models.Model):
     title = models.CharField(max_length=255)
-    # text = models.CharField(max_length=255)
     text = RichTextField(blank=True, null=True)
     author = models.CharField(max_length=100)
     likes = models.CharField(max_length=100,default=0)
@@ -57,6 +56,7 @@ class NewPost_Likes_Dislikes(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     number_comments = models.CharField(max_length=100,default=0)
     count = models.IntegerField(default=0)
+    tags = models.CharField(max_length=200, default=None)
 
     class Meta:
         ordering = ['-date_posted']
@@ -135,3 +135,6 @@ class Counts(models.Model):
     author = models.CharField(max_length=100)
     title = models.CharField(max_length=255)
     count = models.IntegerField(default=0)
+
+class TestList(models.Model):
+    tags = models.CharField(max_length=200)

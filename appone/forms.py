@@ -1,13 +1,28 @@
 import ckeditor
 from ckeditor.widgets import CKEditorWidget
 from django import forms
-from ckeditor.fields import RichTextField
 
+
+FAVORITE_LANGUAGES_CHOICES = [
+    ('Java', 'Java'),
+    ('Python', 'Python'),
+    ('JavaScript', 'JavaScript'),
+    ('Go', 'Go'),
+    ('Ruby', 'Ruby'),
+]
 
 class TestForm(forms.Form):
     title = forms.CharField(label="",
                             widget=forms.TextInput(attrs={'placeholder': 'Enter a title'}),
                             max_length=50)
+    # tags = forms.MultipleChoiceField(
+    #     required=True,
+    #     widget=forms.CheckboxSelectMultiple,
+    #     choices=FAVORITE_LANGUAGES_CHOICES,
+    # )
+
+    tags = forms.ChoiceField(label="",
+        choices = FAVORITE_LANGUAGES_CHOICES, required=True)
 
     # text = forms.CharField(label="",
     #                        widget=forms.Textarea(attrs={'placeholder': 'Enter your text'}),
