@@ -34,7 +34,7 @@ def form(request):
         form = TestForm(request.POST)
         if form.is_valid():
             song = NewPost_Likes_Dislikes(title=form.cleaned_data['title'],
-                                          tags=form.cleaned_data['tags'],
+                                          # tags=form.cleaned_data['tags'],
                                           text=form.cleaned_data['text'],
                                           author=request.user.username)
             song.save()
