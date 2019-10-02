@@ -43,9 +43,13 @@
               #{{ Posts.tags }}
           </button>
             {% elif Posts.tags == "Go" %}
-          <button style="font-size:12px;background-color: black;border: hidden;" type="button" class="btn btn-primary">
+          <button style="font-size:12px;background-color: grey;border: hidden;" type="button" class="btn btn-primary">
               #{{ Posts.tags }}
           </button>
+          {% else %}
+          <button style="font-size:12px;background-color: black;border: hidden;" type="button" class="btn btn-primary">
+             <span style="color:white">#{{ Posts.tags }} </span>
+           </button>
           {% endif %}
       </p>
         <br>

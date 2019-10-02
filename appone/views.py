@@ -31,7 +31,10 @@ def search(request):
 def tags(request, tag):
 
     search_tag = NewPost_Likes_Dislikes.objects.filter(tags__regex=tag)
-    return render(request, 'appone/search_tag.html', {"search_tag": search_tag})
+    return render(request, 'appone/search_tag.html', {
+        "search_tag": search_tag,
+        "tag": tag
+    })
 
 
 @login_required
@@ -39,6 +42,7 @@ def form(request):
     if request.method == "POST":
         form = TestForm(request.POST)
         if form.is_valid():
+            # print(form.cleaned_data["category"])
             song = NewPost_Likes_Dislikes(title=form.cleaned_data['title'],
                                           tags=form.cleaned_data['tags'],
                                           text=form.cleaned_data['text'],

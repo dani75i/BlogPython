@@ -145,12 +145,13 @@ CKEDITOR_CONFIGS = {
             ['TextColor'],
         ],
         # uncomment to restrict only those languages
-        # 'codeSnippet_languages': {
-        #     'python': 'Python Guru',
-        #     'javascript': 'JavaScript Fu',
-        #     'php': 'PHP Ninja',
-        #     'c': 'You custom funny language name'
-        # },
+        'codeSnippet_languages': {
+            'python': 'Python',
+            'javascript': 'JavaScript',
+            'go': 'Go',
+            'ruby': 'Ruby',
+            'java': 'Java',
+        },
         # 'toolbar': 'MyCustomToolbar',
         # 'removePlugins': 'stylesheetparser',
         'extraPlugins': ','.join(

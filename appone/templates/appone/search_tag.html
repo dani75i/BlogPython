@@ -2,16 +2,33 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<br>
+<br>
+<br>
 
-<div class="container">
-<h1 style="text-align:center;font-weight: bold;">Search tag ...</h1>
-</div>
+<header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+  <div class="w3-display-middle w3-margin-top w3-center">
+      {% if tag == "Python" %}
+          <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-green"><b>#{{tag}}</b></span></h1>
+          {% elif tag == "Java" %}
+          <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-blue"><b>#{{tag}}</b></span></h1>
+            {% elif tag == "JavaScript" %}
+          <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-yellow w3-opacity-min"><b>#{{tag}}</b></span></h1>
+            {% elif tag == "Ruby" %}
+          <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-red"><b>#{{tag}}</b></span></h1>
+            {% elif tag == "Go" %}
+          <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-grey"><b>#{{tag}}</b></span></h1>
+            {% else %}
+          <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black"><b>#{{tag}}</b></span></h1>
+          {% endif %}
+  </div>
+</header>
 
+<br>
+<br>
 <br>
 
 
-<!--<div class="w3-col l8 s12">-->
-  <!-- Blog entry -->
    {% for Posts in search_tag %}
 
   <div style="padding-top:20px" class="w3-card-4 w3-margin w3-white">
@@ -45,9 +62,13 @@
               #{{ Posts.tags }}
           </button>
             {% elif Posts.tags == "Go" %}
-          <button style="font-size:12px;background-color: black;border: hidden;" type="button" class="btn btn-primary">
+          <button style="font-size:12px;background-color: grey;border: hidden;" type="button" class="btn btn-primary">
               #{{ Posts.tags }}
           </button>
+          {% else %}
+          <button style="font-size:12px;background-color: black;border: hidden;" type="button" class="btn btn-primary">
+             <span style="color:white">#{{ Posts.tags }} </span>
+           </button>
           {% endif %}
       </p>
         <br>
