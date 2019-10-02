@@ -1,7 +1,7 @@
 import ckeditor
 from ckeditor.widgets import CKEditorWidget
 from django import forms
-from multiselectfield import MultiSelectField
+
 
 FAVORITE_LANGUAGES_CHOICES = [
     ('Java', 'Java'),
