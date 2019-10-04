@@ -11,7 +11,7 @@
         {% csrf_token %}
         {{ form|crispy }}
       <br>
-      <button  type="submit" class="btn btn-primary btn-lg center-block">Sign In</button>
+      <button  type="submit" class="btn btn-success btn-lg center-block">Sign In</button>
     </form>
 
     <br>
@@ -24,7 +24,7 @@
     <h3>
         You don't have an account ?
         <a class="nav-link" href="{% url 'register' %}">
-        <button type="submit" class="btn btn-success btn-lg center-block">
+        <button type="submit" class="btn btn-primary btn-lg center-block">
             Sign Up
         </button></a>
     </h3>
