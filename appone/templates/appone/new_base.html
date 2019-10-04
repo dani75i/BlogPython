@@ -48,31 +48,50 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a style="font-weight:bold; font-size:25px; color:red" class="navbar-brand" href="{% url 'home' %}"> Take A Coffee !</a>
+  <a style="font-weight:bold; font-size:35px; color:red" class="navbar-brand" href="{% url 'home' %}"> Take A Coffee !</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+    <!--<ul class="navbar-nav ml-auto mt-2 mt-lg-0">-->
 
       {% if user.is_authenticated %}
+<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'profile' %}"><p class="nav"><span>Welcome {{ user.username }}</span></p></a>
+        <button style="border-radius: 7px;" type="button" class="btn btn-success btn-xs">
+          <a class="nav-link" href="{% url 'post' %}"><p style="color:white; font-size:18px; font-weight:italic" class="nav">
+                  <span class="glyphicon glyphicon-pencil"></span>&nbsp; &nbsp; Write a Post &nbsp; &nbsp;</p>
+          </a>
+        </button>
+        </ul>
+      </li>
+  <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link " href="{% url 'profile' %}"><p style="padding-top:5px" class="nav"><span >Welcome @{{ user.username }}</span></p></a>
+
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'post' %}"><p class="nav"><span class="glyphicon glyphicon-pencil"></span>&nbsp; New Post</p></a>
+        <a class="nav-link" href="{% url 'logout' %}"><p style="padding-top:5px" class="nav"><span class="glyphicon glyphicon-off"></span>&nbsp;Logout</p></a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'logout' %}"><p class="nav"><span class="glyphicon glyphicon-off"></span>&nbsp; Logout</p></a>
-      </li>
+</ul>
       {% else %}
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <button style="font-family: Arial;border-radius: 6px;border: 1px solid black; background-color: #00BFFF;" type="button" class="btn btn-success btn-sm">
+          <a class="nav-link" href="{% url 'login' %}"><p style="color:white; font-size:18px;" class="nav">
+                 &nbsp; <span class="glyphicon glyphicon-pencil"></span>&nbsp; &nbsp; Write a Post &nbsp; &nbsp;</p>
+          </a>
+        </button>
+        </ul>
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
        <li class="nav-item active">
         <a class="nav-link" href="{% url 'register' %}"><p class="nav"><span class="glyphicon glyphicon-user"></span>&nbsp; Sign Up</p></a>
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'login' %}"><p class="nav"><span class="glyphicon glyphicon-log-in"></span> &nbsp; Login</p></a>
       </li>
+      </ul>
       {% endif %}
     </ul>
     <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="GET">
