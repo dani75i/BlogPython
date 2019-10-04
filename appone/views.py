@@ -201,7 +201,7 @@ def get_one_post_likes_dislikes(request, pk):
         "likes": likes,
         "dislikes": dislikes,
         "comment": comment,
-        "all_comments": LeaveAComment.objects.order_by('-date_posted').all().filter(
+        "all_comments": LeaveAComment.objects.order_by('date_posted').all().filter(
             title=NewPost_Likes_Dislikes.objects.get(pk=pk).title),
         "count": views,
     }
