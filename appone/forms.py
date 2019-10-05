@@ -24,7 +24,7 @@ CHOICES = (
         ('Kubernetes', 'Kubernetes'),
         ('Jenkins', 'Jenkins'),
     )),
-    ('IA', (
+    ('AI', (
         ('Machine Learning', 'Machine Learning'),
         ('Deep learning', 'Deep learning'),
     )),
@@ -33,7 +33,7 @@ CHOICES = (
 class TestForm(forms.Form):
     title = forms.CharField(label="",
                             widget=forms.TextInput(attrs={'placeholder': 'Enter a title'}),
-                            max_length=50)
+                            max_length=150)
 
     tags = forms.ChoiceField(label="Select a tag",
         choices = CHOICES, required=True)

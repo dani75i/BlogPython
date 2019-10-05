@@ -6,7 +6,7 @@ from django.template import loader
 from django.views.generic import ListView
 from appone.forms import TestForm, LeaveComment
 from appone.models import Post, NewPost, Dislikes, \
-    Likesd, Dislikes_Author, Likes_Dislikes, Dislikes_Likes, \
+    Dislikes_Author, Likes_Dislikes, Dislikes_Likes, \
     Likes_And_Dislikes, NewPost_Likes_Dislikes, LeaveAComment, Counts
 
 
@@ -175,6 +175,18 @@ def get_one_post_likes_dislikes(request, pk):
 
     for s in LeaveAComment.objects.all().filter(title=NewPost_Likes_Dislikes.objects.get(pk=pk).title):
         all_comments = all_comments + s.content
+
+
+    ############################
+    # BEGIN REPLY TO A COMMENT #
+    ############################
+
+
+
+
+    ##########################
+    # END REPLY TO A COMMENT #
+    ##########################
 
     likes = 0
 

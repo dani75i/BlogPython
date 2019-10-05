@@ -75,11 +75,6 @@ class Likes(models.Model):
         return self.pk
 
 
-class Likesd(models.Model):
-    title = models.CharField(default="toto",max_length=255)
-    text = models.CharField(default="toto", max_length=255)
-    likes = models.IntegerField(default=0)
-
 class Dislikes(models.Model):
     title = models.CharField(default="toto",max_length=255)
     text = models.CharField(default="toto", max_length=255)
