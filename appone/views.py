@@ -251,7 +251,11 @@ def edit_a_post(request, pk):
             return redirect('my_posts')
 
     else:
-        form = TestForm()
+        form = TestForm(initial={
+            'title':  NewPost_Likes_Dislikes.objects.get(pk=pk).title,
+            'tags':  NewPost_Likes_Dislikes.objects.get(pk=pk).tags,
+            'text':  NewPost_Likes_Dislikes.objects.get(pk=pk).text,
+        })
 
     return render(request, 'appone/edit_post.html', {
         "form": form,
