@@ -1,0 +1,27 @@
+{% extends "appone/new_base.html"%}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+  <div class="w3-display-middle w3-margin-top w3-center">
+      <h1> Edit Your post</h1>
+  </div>
+</header>
+
+
+<div class="container">
+
+    <br>
+    <br>
+  <form style="text-align:center" action="" method="POST">
+    {% csrf_token %}
+      {{ form|crispy }}
+      <br>
+      {{ form.media}}
+    <button type="submit" class="btn btn btn-primary btn-lg center-block">Submit</button>
+</form>
+
+</div>
+
+
+{% endblock %}

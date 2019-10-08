@@ -29,7 +29,6 @@ def search(request):
 
 
 def tags(request, tag):
-
     search_tag = NewPost_Likes_Dislikes.objects.filter(tags__regex=tag)
     return render(request, 'appone/search_tag.html', {
         "search_tag": search_tag,
@@ -42,7 +41,6 @@ def form(request):
     if request.method == "POST":
         form = TestForm(request.POST)
         if form.is_valid():
-            # print(form.cleaned_data["category"])
             song = NewPost_Likes_Dislikes(title=form.cleaned_data['title'],
                                           tags=form.cleaned_data['tags'],
                                           text=form.cleaned_data['text'],
@@ -176,13 +174,9 @@ def get_one_post_likes_dislikes(request, pk):
     for s in LeaveAComment.objects.all().filter(title=NewPost_Likes_Dislikes.objects.get(pk=pk).title):
         all_comments = all_comments + s.content
 
-
     ############################
     # BEGIN REPLY TO A COMMENT #
     ############################
-
-
-
 
     ##########################
     # END REPLY TO A COMMENT #
@@ -201,8 +195,6 @@ def get_one_post_likes_dislikes(request, pk):
         dislikes = dislikes + s.dislikes
 
     NewPost_Likes_Dislikes.objects.filter(pk=pk).update(dislikes=dislikes)
-
-
 
     context = {
         'title': NewPost_Likes_Dislikes.objects.get(pk=pk).title,
@@ -235,3 +227,39 @@ def test(request):
 
 def blog(request):
     return render(request, 'appone/all_posts.html')
+
+
+@login_required
+def my_posts(request):
+
+    my_posts = NewPost_Likes_Dislikes.objects.filter(author=request.user.username)
+    return render(request, 'appone/my_posts.html', {
+        "my_posts": my_posts,
+    })
+
+@login_required
+def edit_a_post(request, pk):
+    if request.method == "POST":
+        form = TestForm(request.POST)
+        if form.is_valid():
+            NewPost_Likes_Dislikes.objects.filter(pk=pk).update(
+                title=form.cleaned_data['title'],
+                tags=form.cleaned_data['tags'],
+                text=form.cleaned_data['text'],
+                author=request.user.username)
+            messages.success(request, 'Your comment has been updated')
+            return redirect('my_posts')
+
+    else:
+        form = TestForm()
+
+    return render(request, 'appone/edit_post.html', {
+        "form": form,
+    })
+
+
+@login_required
+def delete_a_post(request, pk):
+    NewPost_Likes_Dislikes.objects.filter(pk=pk).delete()
+    messages.warning(request, 'Your comment has been deleted')
+    return redirect('my_posts')

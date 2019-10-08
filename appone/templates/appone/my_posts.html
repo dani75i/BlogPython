@@ -1,0 +1,126 @@
+{% extends "appone/new_base.html"%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<br>
+{% if messages %}
+    {% for message in  messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <br>
+<br>
+<br>
+
+   {% for Posts in my_posts %}
+
+  <div style="padding-top:20px" class="w3-card-4 w3-margin w3-white">
+    <div class="w3-container">
+      <h3><b><a style="color:black" href="{% url 'postone' Posts.pk%}">{{ Posts.title }}</a></b></h3>
+
+      <h5><span style="color:blue; font-size:15px">@{{ Posts.author }}</span>&nbsp;<span class="w3-opacity">{{ Posts.date_posted }}</span></h5>
+        <br>
+
+    </div>
+
+    <div class="w3-container">
+      <p>
+          {% if Posts.tags == "Python" %}
+          <button style="font-size:12px;background-color: green;border: hidden;" type="button" class="btn btn-primary">
+              #{{ Posts.tags }}
+          </button>
+          {% elif Posts.tags == "Java" %}
+          <button style="font-size:12px;background-color: blue;border: hidden;" type="button" class="btn btn-primary">
+              #{{ Posts.tags }}
+          </button>
+            {% elif Posts.tags == "JavaScript" %}
+          <button style="font-size:12px;background-color: #BDB76B;border: hidden;" type="button" class="btn btn-primary">
+              #{{ Posts.tags }}
+          </button>
+            {% elif Posts.tags == "JavaScript" %}
+          <button style="font-size:12px;background-color: black;border: hidden;" type="button" class="btn btn-primary">
+              #{{ Posts.tags }}
+          </button>
+            {% elif Posts.tags == "Ruby" %}
+          <button style="font-size:12px;background-color: red;border: hidden;" type="button" class="btn btn-primary">
+              #{{ Posts.tags }}
+          </button>
+            {% elif Posts.tags == "Go" %}
+          <button style="font-size:12px;background-color: grey;border: hidden;" type="button" class="btn btn-primary">
+              #{{ Posts.tags }}
+          </button>
+          {% else %}
+          <button style="font-size:12px;background-color: black;border: hidden;" type="button" class="btn btn-primary">
+             <span style="color:white">#{{ Posts.tags }} </span>
+           </button>
+
+          {% endif %}
+      </p>
+        <br>
+      <div style="text-align:center">
+          <p>
+              <span style="color:blue; font-weight: bold; font-size:16px"><span style="font-size:20px" class="glyphicon glyphicon-thumbs-up"> </span>{{ Posts.likes }} </span> &nbsp;
+              <span style="color:red; font-weight: bold; font-size:16px"><span style="font-size:20px" class="glyphicon glyphicon-thumbs-down"> </span>{{ Posts.dislikes }} </span> &nbsp;</span>
+              <span style="color:black; font-weight: bold; font-size:16px"><span style="font-size:20px" class="glyphicon glyphicon-comment"></span> {{ Posts.number_comments }} </span> &nbsp;
+              <span style="color:black; font-weight: bold; font-size:16px"><span style="font-size:20px" class="glyphicon glyphicon-eye-open"></span> {{ Posts.count }} </span>
+          </p>
+
+          <br>
+
+          <a style="text-decoration: none;" href="{% url 'edit_a_post' Posts.pk%}">
+
+          <button class="btn btn-outline-primary">
+              Edit
+          </button>
+        </a>
+
+        <a href="{% url 'delete_a_post' Posts.pk%}">
+              <button type="button" name="delete_a_post" class="btn btn-outline-danger">
+                  Delete
+              </button>
+        </a>
+
+
+      </div>
+        <br>
+    </div>
+  </div>
+
+<div style="text-align:center"class="container">
+
+
+    <!--<a style="color:black" href="{% url 'edit_a_post' Posts.pk%}">-->
+
+          <!--<button type="button" class="btn btn-primary">-->
+              <!--Edit-->
+          <!--</button>-->
+
+        <!--</a>-->
+
+    <!--<a style="color:black" href="{% url 'delete_a_post' Posts.pk%}">-->
+          <!--<button type="button" name="delete_a_post" class="btn btn-danger">-->
+              <!--Delete-->
+          <!--</button>-->
+    <!--</a>-->
+</div>
+
+{% empty %}
+
+<div class="container">
+        <h1 style="text-align:center;font-weight: bold;">You don't any posts ...</h1>
+        <h1 style="text-align:center;"> Create one !</h1>
+</div>
+
+    {% endfor %}
+
+<!-- END BLOG ENTRIES -->
+<!--</div>-->
+
+
+
+{% endblock %}
+
+
+
