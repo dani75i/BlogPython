@@ -3,40 +3,53 @@
 
 {% block content %}
 <br>
+{% if messages %}
+    {% for message in  messages %}
+    <div class="alert alert-{{ message.tags }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <br>
 <br>
-<br>
-
 <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
   <div class="w3-display-middle w3-margin-top w3-center">
-      {% if tag == "Python" %}
-          <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-green"><b>#{{tag}}</b></span></h1>
-          {% elif tag == "Java" %}
-          <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-blue"><b>#{{tag}}</b></span></h1>
-            {% elif tag == "JavaScript" %}
-          <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-yellow w3-opacity-min"><b>#{{tag}}</b></span></h1>
-            {% elif tag == "Ruby" %}
-          <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-red"><b>#{{tag}}</b></span></h1>
-            {% elif tag == "Go" %}
-          <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-grey"><b>#{{tag}}</b></span></h1>
-            {% else %}
-          <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black"><b>#{{tag}}</b></span></h1>
-          {% endif %}
+      <h1  class="w3-xxlarge w3-text-white">
+          <span class="w3-padding w3-grey"><b style="color:white">My Notifications</b></span>
+      </h1>
+
   </div>
 </header>
 
 <br>
 <br>
 <br>
-
-
-   {% for Posts in search_tag %}
+<br>
+   {% for Posts in my_notifications %}
 
   <div style="padding-top:20px" class="w3-card-4 w3-margin w3-white">
     <div class="w3-container">
+      <!--<h3><b><a style="color:black" href="{% url 'postone' Posts.pk%}">{{ Posts.title }}</a></b></h3>-->
+
+
+        <div class="row">
+    <div class="col-sm-6">
       <h3><b><a style="color:black" href="{% url 'postone' Posts.pk%}">{{ Posts.title }}</a></b></h3>
+    </div>
+    <div style="text-align:right" class="col-sm-6">
+      <a href="{% url 'notification' Posts.pk%}">
+              <button style="font-size: 17px;" type="button" name="delete_a_post" class="btn btn-outline-warning">
+                  Mark as viewed
+              </button>
+        </a>
+    </div>
+
+  </div>
+
 
       <h5><span style="color:blue; font-size:15px">@{{ Posts.author }}</span>&nbsp;<span class="w3-opacity">{{ Posts.date_posted }}</span></h5>
         <br>
+
     </div>
 
     <div class="w3-container">
@@ -69,6 +82,7 @@
           <button style="font-size:12px;background-color: black;border: hidden;" type="button" class="btn btn-primary">
              <span style="color:white">#{{ Posts.tags }} </span>
            </button>
+
           {% endif %}
       </p>
         <br>
@@ -80,11 +94,54 @@
               <span style="color:black; font-weight: bold; font-size:16px"><span style="font-size:20px" class="glyphicon glyphicon-eye-open"></span> {{ Posts.count }} </span>
           </p>
 
+          <br>
+
+          <a style="text-decoration: none;" href="{% url 'edit_a_post' Posts.pk%}">
+
+          <button class="btn btn-outline-primary">
+              Edit
+          </button>
+        </a>
+
+        <a href="{% url 'delete_a_post' Posts.pk%}">
+              <button type="button" name="delete_a_post" class="btn btn-outline-danger">
+                  Delete
+              </button>
+        </a>
+
+
       </div>
+        <br>
     </div>
   </div>
+
+<div style="text-align:center"class="container">
+
+
+    <!--<a style="color:black" href="{% url 'edit_a_post' Posts.pk%}">-->
+
+          <!--<button type="button" class="btn btn-primary">-->
+              <!--Edit-->
+          <!--</button>-->
+
+        <!--</a>-->
+
+    <!--<a style="color:black" href="{% url 'delete_a_post' Posts.pk%}">-->
+          <!--<button type="button" name="delete_a_post" class="btn btn-danger">-->
+              <!--Delete-->
+          <!--</button>-->
+    <!--</a>-->
+</div>
+
+{% empty %}
+
+<div class="container">
+        <h1 style="text-align:center;font-weight: bold;">You don't have any notifications ...</h1>
+
+</div>
+
     {% endfor %}
-  <hr>
+
 <!-- END BLOG ENTRIES -->
 <!--</div>-->
 

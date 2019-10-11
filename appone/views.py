@@ -16,8 +16,30 @@ class PostListView(ListView):
     context_object_name = 'Post'
 
 
+def all_posts(request):
+
+    my_posts = NewPost_Likes_Dislikes.objects.all()
+
+    notifications = 0
+
+    for s in NewPost_Likes_Dislikes.objects.all().\
+            filter(author=request.user.username):
+        notifications = notifications + s.notifications
+
+    return render(request, 'appone/all_posts.html', {
+        "Post": my_posts,
+        "Notifications": notifications,
+    })
+
+
 def search(request):
     if request.method == "GET":
+
+        notifications = 0
+
+        for s in NewPost_Likes_Dislikes.objects.all(). \
+                filter(author=request.user.username):
+            notifications = notifications + s.notifications
 
         word = request.GET['q'].strip()
         print("WORD", word)
@@ -25,14 +47,22 @@ def search(request):
         if searching:
             return render(request, 'appone/search.html', {"search": searching})
 
-        return render(request, 'appone/search_empty.html', {})
+        return render(request, 'appone/search_empty.html', {"Notifications": notifications,})
 
 
 def tags(request, tag):
     search_tag = NewPost_Likes_Dislikes.objects.filter(tags__regex=tag)
+
+    notifications = 0
+
+    for s in NewPost_Likes_Dislikes.objects.all(). \
+            filter(author=request.user.username):
+        notifications = notifications + s.notifications
+
     return render(request, 'appone/search_tag.html', {
         "search_tag": search_tag,
-        "tag": tag
+        "tag": tag,
+        "Notifications": notifications,
     })
 
 
@@ -51,7 +81,16 @@ def form(request):
     else:
         form = TestForm()
 
-    return render(request, 'appone/add_post.html', {"form": form})
+    notifications = 0
+
+    for s in NewPost_Likes_Dislikes.objects.all(). \
+            filter(author=request.user.username):
+        notifications = notifications + s.notifications
+
+    return render(request, 'appone/add_post.html', {
+        "form": form,
+        "Notifications": notifications,
+    })
 
 
 # @login_required
@@ -159,12 +198,34 @@ def get_one_post_likes_dislikes(request, pk):
         if comment.is_valid():
             song = LeaveAComment(content=comment.cleaned_data['content'],
                                  title=NewPost_Likes_Dislikes.objects.get(pk=pk).title,
-                                 author=request.user.username)
+                                 author=request.user.username,
+                                 status_comment=True)
             song.save()
+
+            # number_notifs = NewPost_Likes_Dislikes.objects\
+            #     .get(title=NewPost_Likes_Dislikes.objects.get(pk=pk)).notifications
+            #
+            # print("NUMBER : ", number_notifs)
+            #
+            # NewPost_Likes_Dislikes.objects.filter(pk=pk).\
+            #     exclude(author=NewPost_Likes_Dislikes.objects.get(pk=pk).author).\
+            #     update(notifications=number_notifs+1)
+
+
+
             messages.success(request, 'Your comment has been saved')
 
     else:
         comment = LeaveComment()
+
+    # COUNT ALL COMMENTS FROM OTHERS AND UPDATE NOTIFICATIONS ATTRIBUTE
+
+    comments_from_others = LeaveAComment.objects.all() \
+        .filter(title=NewPost_Likes_Dislikes.objects.get(pk=pk), status_comment=True) \
+        .exclude(author=NewPost_Likes_Dislikes.objects.get(pk=pk).author).count()
+
+    NewPost_Likes_Dislikes.objects.filter(pk=pk).\
+        update(notifications=int(comments_from_others))
 
     test = LeaveAComment.objects.all().filter(title=NewPost_Likes_Dislikes.objects.get(pk=pk)).count()
     NewPost_Likes_Dislikes.objects.filter(pk=pk).update(number_comments=str(test))
@@ -173,6 +234,8 @@ def get_one_post_likes_dislikes(request, pk):
 
     for s in LeaveAComment.objects.all().filter(title=NewPost_Likes_Dislikes.objects.get(pk=pk).title):
         all_comments = all_comments + s.content
+
+
 
     ############################
     # BEGIN REPLY TO A COMMENT #
@@ -196,6 +259,15 @@ def get_one_post_likes_dislikes(request, pk):
 
     NewPost_Likes_Dislikes.objects.filter(pk=pk).update(dislikes=dislikes)
 
+    # AFTER READ THIS ARTICLE, DISABLE NOTIFICATION
+    # NewPost_Likes_Dislikes.objects.filter(pk=pk).update(notifications=0)
+
+    notifications = 0
+
+    for s in NewPost_Likes_Dislikes.objects.all(). \
+            filter(author=request.user.username):
+        notifications = notifications + s.notifications
+
     context = {
         'title': NewPost_Likes_Dislikes.objects.get(pk=pk).title,
         'text': NewPost_Likes_Dislikes.objects.get(pk=pk).text,
@@ -208,6 +280,7 @@ def get_one_post_likes_dislikes(request, pk):
         "all_comments": LeaveAComment.objects.order_by('date_posted').all().filter(
             title=NewPost_Likes_Dislikes.objects.get(pk=pk).title),
         "count": views,
+        "Notifications": notifications,
     }
 
     return HttpResponse(template.render(context, request))
@@ -233,8 +306,16 @@ def blog(request):
 def my_posts(request):
 
     my_posts = NewPost_Likes_Dislikes.objects.filter(author=request.user.username)
+
+    notifications = 0
+
+    for s in NewPost_Likes_Dislikes.objects.all(). \
+            filter(author=request.user.username):
+        notifications = notifications + s.notifications
+
     return render(request, 'appone/my_posts.html', {
         "my_posts": my_posts,
+        "Notifications": notifications,
     })
 
 @login_required
@@ -267,3 +348,37 @@ def delete_a_post(request, pk):
     NewPost_Likes_Dislikes.objects.filter(pk=pk).delete()
     messages.warning(request, 'Your comment has been deleted')
     return redirect('my_posts')
+
+
+@login_required
+def notification(request, pk):
+    # SET A O LES  NOTIFS POUR CE POST
+    NewPost_Likes_Dislikes.objects.filter(pk=pk).update(notifications=0)
+
+    # SET A A TOUS LES COMMENTAIRES LIES A CE POSTE
+    LeaveAComment.objects.all().\
+        filter(title=NewPost_Likes_Dislikes.objects.get(pk=pk)).\
+            update(status_comment=False)
+
+
+
+    return redirect('my_notifications')
+
+
+@login_required
+def my_notifications(request):
+
+    my_notifications = NewPost_Likes_Dislikes.\
+        objects.filter(author=request.user.username,
+                       notifications__gte=1)
+
+    notifications = 0
+
+    for s in NewPost_Likes_Dislikes.objects.all(). \
+            filter(author=request.user.username):
+        notifications = notifications + s.notifications
+
+    return render(request, 'appone/my_notifications.html', {
+        "my_notifications": my_notifications,
+        "Notifications": notifications,
+    })

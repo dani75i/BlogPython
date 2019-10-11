@@ -1,9 +1,174 @@
-{% extends "appone/new_base.html"%}
-{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+<title>DEV BLOG</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<!--<script src="/static/base/js/main.js"></script>-->
+<script>hljs.initHighlightingOnLoad();</script>
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+<script src="https://cdn.ckeditor.com/4.13.0/standard-all/ckeditor.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+
+<script type="text/javascript" src="https://cdn.ckeditor.com/4.13.0/standard-all/config.js?t=J8Q7"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.ckeditor.com/4.13.0/standard-all/skins/moono-lisa/editor.css?t=J8Q7">
+<script type="text/javascript" src="https://cdn.ckeditor.com/4.13.0/standard-all/lang/en.js?t=J8Q7"></script>
+<script type="text/javascript" src="https://cdn.ckeditor.com/4.13.0/standard-all/styles.js?t=J8Q7"></script>
+<script type="text/javascript" src="https://cdn.ckeditor.com/4.13.0/standard-all/plugins/codesnippet/plugin.js?t=J8Q7"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.ckeditor.com/4.13.0/standard-all/plugins/scayt/skins/moono-lisa/scayt.css?t=J8Q7">
+<link rel="stylesheet" type="text/css" href="https://cdn.ckeditor.com/4.13.0/standard-all/plugins/scayt/dialogs/dialog.css?t=J8Q7">
+<link rel="stylesheet" type="text/css" href="https://cdn.ckeditor.com/4.13.0/standard-all/plugins/tableselection/styles/tableselection.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.ckeditor.com/4.13.0/standard-all/plugins/wsc/skins/moono-lisa/wsc.css?t=J8Q7">
+<script type="text/javascript" src="https://cdn.ckeditor.com/4.13.0/standard-all/plugins/codesnippet/lang/en.js?t=J8Q7"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.ckeditor.com/4.13.0/standard-all/plugins/dialog/styles/dialog.css">
+<script type="text/javascript" src="https://cdn.ckeditor.com/4.13.0/standard-all/plugins/codesnippet/lib/highlight/highlight.pack.js"></script>
+
+
+<body class="w3-light-white">
+
+<!--&nbsp;-->
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'appone/css/new_base.css' %}">
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a style="font-weight:bold; font-size:35px; color:red" class="navbar-brand" href="{% url 'home' %}"> Take A Coffee !</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+
+
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+
+
+      {% if user.is_authenticated %}
+<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <button style="border-radius: 7px;" type="button" class="btn btn-success btn-xs">
+          <a class="nav-link" href="{% url 'post' %}">
+              <p style="color:white; font-size:14px; font-weight:italic" class="nav">
+                  <span class="glyphicon glyphicon-pencil"></span>&nbsp; &nbsp; Write a Post &nbsp; &nbsp;
+              </p>
+          </a>
+        </button>
+        </ul>
+      </li>
+  <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+
+       <li class="nav-item active">
+        <a class="nav-link " href="{% url 'my_notifications' %}">
+
+            <p style="padding-top:5px" class="nav">
+                <button type="button" class="btn btn-outline-primary">
+                    <span style="font-size:16px">Notifications</span> &nbsp;
+                <span style="font-size:13px;background-color:red; color:white; border-radius: 10px;" class="badge">
+                    {{ Notifications }}
+                </span>
+                    </button>
+            </p>
+
+        </a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link " href="{% url 'my_posts' %}">
+
+            <p style="padding-top:5px" class="nav">
+                <button type="button" class="btn btn-outline-primary">
+                    <span style="font-size:16px">My Posts</span> &nbsp;
+                    </button>
+            </p>
+
+        </a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link " href="{% url 'logout' %}">
+
+            <p style="padding-top:5px" class="nav">
+                <button type="button" class="btn btn-outline-primary">
+                    <span style="font-size:16px" class="glyphicon glyphicon-off"></span>&nbsp;
+                    <span style="font-size:16px">Logout</span>
+                    </button>
+            </p>
+
+        </a>
+      </li>
+
+</ul>
+      {% else %}
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+      <li class="nav-item active">
+        <button style="border-radius: 7px;" type="button" class="btn btn-success btn-xs">
+          <a class="nav-link" href="{% url 'login' %}"><p style="color:white; font-size:18px;" class="nav">
+                 &nbsp; <span class="glyphicon glyphicon-pencil"></span>&nbsp; &nbsp; Write a Post &nbsp; &nbsp;</p>
+          </a>
+        </button>
+        </ul>
+
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+        <li class="nav-item active">
+        <a class="nav-link " href="{% url 'register' %}">
+
+            <p style="padding-top:5px" class="nav">
+                <button type="button" class="btn btn-outline-primary">
+                    <span style="font-size:16px" class="glyphicon glyphicon-user"></span>&nbsp;
+                    <span style="font-size:16px">Sign Up</span>
+                    </button>
+            </p>
+
+        </a>
+      </li>
+
+        <li class="nav-item active">
+        <a class="nav-link " href="{% url 'login' %}">
+
+            <p style="padding-top:5px" class="nav">
+                <button type="button" class="btn btn-outline-primary">
+                    <span style="font-size:16px" class="glyphicon glyphicon-log-in"></span>&nbsp;
+                    <span style="font-size:16px">Sign In</span>
+                    </button>
+            </p>
+
+        </a>
+      </li>
+
+      </ul>
+      {% endif %}
+    </ul>
+    <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="GET">
+      <input class="form-control mr-sm-2" type="search" name="q" type="text" id="query" placeholder="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0 btn-lg" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
 
 {% block content %}
 
-{% load static %}
+
+{% load crispy_forms_tags %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'appone/css/all_posts.css' %}">
 
@@ -17,9 +182,18 @@
     <br>
 
 <!-- Header -->
-<header class=" w3-container w3-center w3-padding-32">
+<header class=" w3-container w3-center w3-padding-3">
   <h1><b>Share Your Code</b></h1>
   <p>Welcome to the blog of <span class="w3-tag">Developers !</span></p>
+    <br>
+    <h1 style="color:#DC143C; font-weight:bold;">
+        {% if user.is_authenticated %}
+        <span style='font-size:30px;'>&#128526;</span>
+        Welcome @{{ user.username }}
+        <span style='font-size:30px;'>&#128526;</span></h1>
+        {% endif %}
+
+
 </header>
 
 <!-- Grid -->

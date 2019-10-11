@@ -1,4 +1,4 @@
-{% extends "appone/new_base.html" %}
+{% extends "appone/all_posts.html"%}
 {% load crispy_forms_tags %}
 {% block content %}
 
@@ -21,12 +21,11 @@
 </div>
 
 <div class="container">
-    <h3>
-        You don't have an account ?
-        <a class="nav-link" href="{% url 'register' %}">
-        <button type="submit" class="btn btn-primary btn-lg center-block">
-            Sign Up
-        </button></a>
-    </h3>
+
+        <h3>
+            You don't have an account ? <a style="font-weight:bold" href="{% url 'register' %}">Sign Up</a>
+        </h3>
+
+
 </div>
 {% endblock content %}

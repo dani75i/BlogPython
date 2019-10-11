@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
+from appone.models import NewPost_Likes_Dislikes
+
 
 def register(request):
     if request.method == 'POST':
@@ -19,4 +21,15 @@ def register(request):
 @login_required
 def profile(request):
     form = "ok"
-    return render(request, 'users/profile.html', {'form': form})
+
+    notifications = 0
+
+    for s in NewPost_Likes_Dislikes.objects.all(). \
+            filter(author=request.user.username):
+        notifications = notifications + s.notifications
+
+
+    return render(request, 'users/profile.html', {
+        'form': form,
+        "Notifications": notifications,
+    })

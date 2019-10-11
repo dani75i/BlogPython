@@ -3,7 +3,8 @@ from django.contrib import admin
 from appone.models import Song, Post, \
     NewPost, Likes, Dislikes, Dislikes_Author, \
     Likes_Dislikes, Dislikes_Likes, Likes_And_Dislikes, \
-    NewPost_Likes_Dislikes, LeaveAComment, Songoa, Count, Counts
+    NewPost_Likes_Dislikes, LeaveAComment, Songoa, \
+    Count, Counts
 
 admin.site.register(Song)
 admin.site.register(Post)
