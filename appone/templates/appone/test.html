@@ -10,6 +10,22 @@
 
 <br>
 
+<button onclick="showForm()">Show the form</button>
+<form id="formElement" style="display: none;">
+   First name:<br>
+  <input type="text" name="firstname" value="Mickey">
+  <br>
+  Last name:<br>
+  <input type="text" name="lastname" value="Mouse">
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
+
+<script type="text/javascript">
+    function showForm() {
+        document.getElementById('formElement').style.display = 'block';
+    }
+</script>
 
     <div style="background-color:red; padding: 20px;
      text-align:center; width:400px; margin: 0 auto;">

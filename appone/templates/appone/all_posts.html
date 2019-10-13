@@ -43,8 +43,8 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <!--&nbsp;-->
 
 {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'appone/css/all_posts.css' %}">
 
-<link rel="stylesheet" type="text/css" href="{% static 'appone/css/new_base.css' %}">
 
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -203,9 +203,8 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <div class="w3-col l8 s12">
   <!-- Blog entry -->
    {% for Posts in Post %}
-
-  <div style="padding-top:20px" class="w3-card-4 w3-margin w3-white">
-    <div class="w3-container">
+  <div id="box" onclick="location.href='{% url 'postone' Posts.pk%}';" style="cursor: pointer;padding-top:20px" class="w3-card-4 w3-margin w3-white " >
+    <div class="w3-container" >
       <h2><b><a style="color:black" href="{% url 'postone' Posts.pk%}">{{ Posts.title }}</a></b></h2>
         <br>
       <h5><span style="color:blue; font-size:20px">@{{ Posts.author }}</span>&nbsp;<span class="w3-opacity">{{ Posts.date_posted }}</span></h5>
@@ -255,7 +254,9 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       </div>
 
     </div>
+
   </div>
+
     {% endfor %}
   <hr>
 <!-- END BLOG ENTRIES -->

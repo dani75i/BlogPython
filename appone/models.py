@@ -39,14 +39,6 @@ class Post(models.Model):
         return self.title
 
 
-class NewPost(models.Model):
-    title = models.CharField(max_length=255)
-    text = models.CharField(max_length=255)
-    author = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.title
-
 class NewPost_Likes_Dislikes(models.Model):
     title = models.CharField(max_length=255)
     text = RichTextField(blank=True, null=True)
@@ -82,13 +74,6 @@ class Dislikes(models.Model):
     dislikes = models.IntegerField(default=0)
 
 
-class Dislikes_Author(models.Model):
-    author = models.CharField(max_length=100)
-    dislikes = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.author
-
 
 class Likes_Dislikes(models.Model):
     author = models.CharField(max_length=100)
@@ -118,6 +103,17 @@ class Likes_And_Dislikes(models.Model):
 
 
 class LeaveAComment(models.Model):
+
+    content = RichTextField(blank=True, null=True)
+    title = models.CharField(max_length=255)
+    author = models.CharField(max_length=100)
+    date_posted = models.DateTimeField(default=timezone.now)
+    status_comment = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.title
+
+class LeaveACommentInComment(models.Model):
 
     content = RichTextField(blank=True, null=True)
     title = models.CharField(max_length=255)

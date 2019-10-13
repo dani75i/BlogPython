@@ -5,9 +5,9 @@ from django.http import HttpResponse
 from django.template import loader
 from django.views.generic import ListView
 from appone.forms import TestForm, LeaveComment
-from appone.models import Post, NewPost, Dislikes, \
-    Dislikes_Author, Likes_Dislikes, Dislikes_Likes, \
-    Likes_And_Dislikes, NewPost_Likes_Dislikes, LeaveAComment, Counts
+from appone.models import Post, Dislikes, \
+    Likes_Dislikes, Dislikes_Likes, \
+    Likes_And_Dislikes, NewPost_Likes_Dislikes, LeaveAComment, Counts, LeaveACommentInComment
 
 
 class PostListView(ListView):
@@ -64,6 +64,12 @@ def tags(request, tag):
         "tag": tag,
         "Notifications": notifications,
     })
+
+
+def comment_a_comment(request, pk):
+    pass
+
+
 
 
 @login_required
@@ -192,7 +198,7 @@ def get_one_post_likes_dislikes(request, pk):
                                               title=NewPost_Likes_Dislikes.objects.get(pk=pk).title).update(
                 dislikes=1)
 
-    if request.method == "POST" and "leave_comment" in request.POST:
+    if request.method == "POST" and "leave_comment" in request.POST and "ok":
 
         comment = LeaveComment(request.POST)
         if comment.is_valid():
@@ -200,23 +206,14 @@ def get_one_post_likes_dislikes(request, pk):
                                  title=NewPost_Likes_Dislikes.objects.get(pk=pk).title,
                                  author=request.user.username,
                                  status_comment=True)
+
             song.save()
-
-            # number_notifs = NewPost_Likes_Dislikes.objects\
-            #     .get(title=NewPost_Likes_Dislikes.objects.get(pk=pk)).notifications
-            #
-            # print("NUMBER : ", number_notifs)
-            #
-            # NewPost_Likes_Dislikes.objects.filter(pk=pk).\
-            #     exclude(author=NewPost_Likes_Dislikes.objects.get(pk=pk).author).\
-            #     update(notifications=number_notifs+1)
-
-
 
             messages.success(request, 'Your comment has been saved')
 
     else:
         comment = LeaveComment()
+
 
     # COUNT ALL COMMENTS FROM OTHERS AND UPDATE NOTIFICATIONS ATTRIBUTE
 
@@ -232,14 +229,33 @@ def get_one_post_likes_dislikes(request, pk):
 
     all_comments = ""
 
-    for s in LeaveAComment.objects.all().filter(title=NewPost_Likes_Dislikes.objects.get(pk=pk).title):
+    for s in LeaveAComment.objects.all().\
+            filter(title=NewPost_Likes_Dislikes.objects.get(pk=pk).title):
         all_comments = all_comments + s.content
 
+    all_comments_comments = ""
 
+    for s in LeaveACommentInComment.objects.all().\
+            filter(title=LeaveAComment.objects.get(pk=pk).content):
+        all_comments_comments = all_comments_comments + s.content
 
     ############################
     # BEGIN REPLY TO A COMMENT #
     ############################
+
+    # if request.method == "POST" and "leave_comment_comment" in request.POST:
+    #
+    #     comment = LeaveComment(request.POST)
+    #     if comment.is_valid():
+    #         song = LeaveACommentInComment(
+    #                              content=comment.cleaned_data['content'],
+    #                              title=request.POST.get('title'),
+    #                              author=request.user.username,
+    #                              status_comment=True)
+    #
+    #         print("TITLE : ", request.POST.get('title'))
+    #         song.save()
+
 
     ##########################
     # END REPLY TO A COMMENT #
@@ -259,8 +275,6 @@ def get_one_post_likes_dislikes(request, pk):
 
     NewPost_Likes_Dislikes.objects.filter(pk=pk).update(dislikes=dislikes)
 
-    # AFTER READ THIS ARTICLE, DISABLE NOTIFICATION
-    # NewPost_Likes_Dislikes.objects.filter(pk=pk).update(notifications=0)
 
     notifications = 0
 
@@ -287,14 +301,6 @@ def get_one_post_likes_dislikes(request, pk):
 
 
 def test(request):
-    # if request.method == "GET":
-    #     count = Count.objects.get(pk=1).count
-    #     print("BEFORE : ", count)
-    #     count = count + 1
-    #     count = Count.objects.filter(pk=1).update(count=count)
-    #     print("AFTER : ", count)
-    #     count = Count.objects.get(pk=1).count
-
     return render(request, 'appone/test.html', {})
 
 

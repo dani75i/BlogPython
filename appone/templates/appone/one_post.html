@@ -85,26 +85,30 @@
 
     {% for Posts in all_comments %}
         <div id="toto">
-            <h2>@{{ Posts.author | title }}</h2>
-            <br>
-           {{ Posts.content|safe}}
-            {{ Posts.date_posted }}
 
-        <!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
-<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">-->
-  <!--Reply-->
-<!--</button>-->
-<!--&lt;!&ndash; Modal &ndash;&gt;-->
+            <div class="row">
+    <div class="col-sm-6">
+      <h2>@{{ Posts.author | title }}</h2>
+    </div>
+
+
+
+    <!--<div style="text-align:right" class="col-sm-6">-->
+
+        <!--<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalCenter">-->
+            <!--Reply-->
+        <!--</button>-->
+
 <!--<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">-->
   <!--<div class="modal-dialog modal-dialog-centered" role="document">-->
     <!--<div class="modal-content">-->
       <!--<div class="modal-header">-->
-        <!--&lt;!&ndash;<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>&ndash;&gt;-->
           <!--<form action="" method="POST" >-->
         <!--{% csrf_token %}-->
-        <!--{{ comment| crispy }}-->
-        <!--{{ comment.media }}-->
-        <!--<button type="submit" name="comment_a_comment" class="btn btn-primary">SUBMIT</button>-->
+              <!--<h2>@{{ Posts.author | title }}</h2>-->
+              <!--<input type="text" name="title" value={{ Posts.pk }}>-->
+        <!--{{ comment.content }}-->
+        <!--<button type="submit" name="leave_comment_comment" class="btn btn-primary">SUBMIT</button>-->
     <!--</form>-->
         <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
           <!--<span aria-hidden="true">&times;</span>-->
@@ -117,9 +121,19 @@
     <!--</div>-->
   <!--</div>-->
 <!--</div>-->
+    <!--</div>-->
+
+
+  </div>
+
+            <br>
+           {{ Posts.content|safe}}
+            {{ Posts.date_posted }}
+
 
         </div>
         <br>
+
     {% endfor %}
 
 </div>
