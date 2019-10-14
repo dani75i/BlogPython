@@ -1,7 +1,9 @@
 import ckeditor
 from ckeditor.widgets import CKEditorWidget
 from django import forms
+from django.forms import ModelForm
 
+from appone.models import UserDetails
 
 FAVORITE_LANGUAGES_CHOICES = [
     ('Java', 'Java'),
@@ -44,3 +46,10 @@ class TestForm(forms.Form):
 class LeaveComment(forms.Form):
 
     content = forms.CharField(widget=CKEditorWidget())
+
+
+
+class UserModelForm(ModelForm):
+    class Meta:
+        model = UserDetails
+        fields = ['title', 'notes', 'age']

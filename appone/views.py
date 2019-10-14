@@ -4,10 +4,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from django.views.generic import ListView
-from appone.forms import TestForm, LeaveComment
+from appone.forms import TestForm, LeaveComment, UserModelForm
 from appone.models import Post, Dislikes, \
     Likes_Dislikes, Dislikes_Likes, \
-    Likes_And_Dislikes, NewPost_Likes_Dislikes, LeaveAComment, Counts, LeaveACommentInComment
+    Likes_And_Dislikes, NewPost_Likes_Dislikes, \
+    LeaveAComment, Counts, LeaveACommentInComment
 
 
 class PostListView(ListView):
@@ -300,10 +301,6 @@ def get_one_post_likes_dislikes(request, pk):
     return HttpResponse(template.render(context, request))
 
 
-def test(request):
-    return render(request, 'appone/test.html', {})
-
-
 def blog(request):
     return render(request, 'appone/all_posts.html')
 
@@ -387,4 +384,19 @@ def my_notifications(request):
     return render(request, 'appone/my_notifications.html', {
         "my_notifications": my_notifications,
         "Notifications": notifications,
+    })
+
+
+def test(request):
+
+    if request.method == 'POST':
+        form = UserModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+    else:
+        form = UserModelForm
+
+    return render(request, 'appone/test.html', {
+        "form": form,
     })

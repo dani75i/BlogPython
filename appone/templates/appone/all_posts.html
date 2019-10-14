@@ -103,6 +103,19 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       </li>
 
       <li class="nav-item active">
+        <a class="nav-link " href="{% url 'profile' %}">
+
+            <p style="padding-top:5px" class="nav">
+                <button type="button" class="btn btn-outline-primary">
+                    <span style="font-size:16px" class="glyphicon glyphicon-user"></span>&nbsp;
+                    <span style="font-size:16px">My profile</span>
+                    </button>
+            </p>
+
+        </a>
+      </li>
+
+      <li class="nav-item active">
         <a class="nav-link " href="{% url 'logout' %}">
 
             <p style="padding-top:5px" class="nav">
@@ -114,6 +127,8 @@ body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
         </a>
       </li>
+
+
 
 </ul>
       {% else %}

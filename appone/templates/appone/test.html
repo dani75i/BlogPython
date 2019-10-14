@@ -9,6 +9,15 @@
 <h1>COUNT : {{ count }}</h1>
 
 <br>
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{form.as_table}}
+
+ </table>
+<input type="submit" value="Submit" />
+</form>
+<br>
 
 <button onclick="showForm()">Show the form</button>
 <form id="formElement" style="display: none;">

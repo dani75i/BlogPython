@@ -22,14 +22,6 @@ class Songo(models.Model):
 
         return "{} {}".format(self.name, self.age)
 
-class Songoa(models.Model):
-    name = models.CharField(max_length=255)
-    age = models.IntegerField(default=0)
-    test = RichTextField()
-
-    def __str__(self):
-
-        return "{} {}".format(self.name, self.age)
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
@@ -132,5 +124,10 @@ class Counts(models.Model):
     title = models.CharField(max_length=255)
     count = models.IntegerField(default=0)
 
-class TestList(models.Model):
-    tags = models.CharField(max_length=200)
+class UserDetails(models.Model):
+    title = models.CharField(max_length=100)
+    notes = models.CharField(max_length=255)
+    age = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.title
